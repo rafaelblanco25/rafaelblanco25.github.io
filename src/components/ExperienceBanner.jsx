@@ -65,7 +65,7 @@ function ExperienceCard({ company, role, year, location, description, logo }) {
       </p>
       {/* <p className="text-white">{year}</p> */}
       {/* <p className="text-white">{location}</p> */}
-      <p className="text-white">{description}</p>
+      <p className="text-gray_text">{description}</p>
       <div className="flex flex-col gap-1 top-2 right-2 absolute">
         <p className="bg-gold text-black p-1 font-bold rounded-md">{year}</p>
       </div>

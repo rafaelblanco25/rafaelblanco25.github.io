@@ -105,7 +105,7 @@ function ServicesBanner() {
 
 function ServiceCard({ service }) {
   return (
-    <div className="bg-black rounded-lg shadow-lg p-4 border border-gray hover:scale-105 hover:border-gold transition-transform duration-300 h-fit my-auto">
+    <div className="bg-black rounded-lg shadow-lg p-4 border border-gray lg:hover:scale-105 lg:hover:border-gold lg:transition-transform lg:duration-300 h-fit my-auto">
       <img
         src={service.icon}
         alt={service.name}
@@ -116,7 +116,7 @@ function ServiceCard({ service }) {
           {service.name}
         </h3>
       </div>
-      <p className="text-gray sm:text-xs md:text-sm lg:text-base">
+      <p className="text-gray_text sm:text-xs md:text-sm lg:text-base">
         {service.description}
       </p>
     </div>

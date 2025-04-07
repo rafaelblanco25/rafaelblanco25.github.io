@@ -15,18 +15,27 @@ function IdBanner() {
   return (
     <Banner first={true}>
       {/* <div className="bg-gradient-to-r from-black to-gray px-6 lg:px-20 flex  sm:gap-4 md:gap-10 lg:gap-20 items-center justify-center w-full py-20 lg:py-32 border-b-2 border-gold"> */}
-      <div className="my-auto">
-        <p className="text-white font-sans text-lg"> Hello, My Name Is </p>
-        <p className="text-white font-sans font-extrabold text-6xl py-4">
-          Rafael Blanco
-        </p>
+      <div className="my-auto flex flex-col gap-2 ">
+        <div className="flex gap-2">
+          <div>
+            <p className="text-white font-sans text-lg"> Hello, My Name Is </p>
+            <p className="text-white font-sans font-extrabold text-6xl py-2">
+              Rafael Blanco
+            </p>
+          </div>
+          <img
+            src={profile}
+            alt="rafael"
+            className="rounded-lg w-40 h-40 min-w-40 min-h-40 lg:hidden md:hidden"
+          />
+        </div>
         <div className="flex gap-2 flex-wrap">
           <p className="text-gold font-bold text-xl my-auto">{">"}</p>
           <p className="text-white my-auto text-lg">Data Scientist</p>
           <p className="text-gold font-bold text-xl my-auto">{"|"}</p>
           <p className="text-white my-auto text-lg">Computer Engineer</p>
           <p className="text-gold font-bold text-xl my-auto">{"|"}</p>
-          <p className="text-white my-auto text-lg">Full Stack Web Developer</p>
+          <p className="text-white my-auto text-lg">Full-Stack Web Developer</p>
           <p className="text-gold font-bold text-xl my-auto">{"|"}</p>
           <p className="text-white my-auto text-lg">Researcher</p>
         </div>
@@ -69,7 +78,7 @@ function IdBanner() {
         <img
           src={profile}
           alt="rafael"
-          className="rounded-lg w-40 h-40 min-w-40 min-h-40 lg:w-72 lg:h-72 md:w-60 md:h-60 sm:w-40 sm:h-40"
+          className="rounded-lg w-40 h-40 min-w-40 min-h-40 lg:w-72 lg:h-72 md:w-60 md:h-60 hidden lg:block md:block sm:hiden"
         />
       </div>
       {/* </div> */}

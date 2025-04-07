@@ -132,9 +132,9 @@ function AboutMeBanner() {
 
   return (
     <Banner>
-      <div className="bg-black flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 p-8 lg:p-16 border-2 border-gray rounded-lg">
+      <div className="bg-black flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 p-2 sm:p-4 md:p-10 lg:p-16 border-2 border-gray rounded-lg">
         <img src={profile} alt="rafael" className="rounded-lg w-40 h-40 min-w-40 min-h-40 lg:w-72 lg:h-72 md:w-60 md:h-60" />
-        <div className="w-3/4">
+        <div className="w-full">
           <CategoryIdentifier name="About Me" description="Who Am I"/>
           <p className="text-white font-sans text-lg pb-4 px-4">
             I am a passionate computer engineer with a strong background in data
@@ -144,29 +144,31 @@ function AboutMeBanner() {
           <CategoryIdentifier name="Skills" description="Technologies And Resources I Manage"/>
           <Tabs value="data-scientist" className="w-full mt-4">
             <TabsHeader
-              className="rounded-none border-b border-gray bg-transparent p-0"
+              className="rounded-none border-b border-gray bg-transparent p-0 text-xs sm:text-sm md:text-base lg:text-lg"
               indicatorProps={{
                 className:
                   "bg-transparent border-b-2 border-gold shadow-none rounded-none",
               }}
+              
             >
-              <Tab key={"data-scientist"} value={"data-scientist"}>
-                <p className="font-bold text-white">Data Scientist</p>
+              <Tab key={"data-scientist"} value={"data-scientist"} className="my-auto">
+                <p className="font-bold text-white leading-none">Data Scientist</p>
               </Tab>
-              <Tab key={"computer-engineer"} value={"computer-engineer"}>
-                <p className="font-bold text-white">Computer Engineer</p>
+              <Tab key={"computer-engineer"} value={"computer-engineer"} className="my-auto">
+                <p className="font-bold text-white leading-none">Computer Engineer</p>
               </Tab>
               <Tab
                 key={"full-stack-web-developer"}
                 value={"full-stack-web-developer"}
+                className="my-auto"
               >
-                <p className="font-bold text-white">Full-Stack Web Developer</p>
+                <p className="font-bold text-white leading-none">Full-Stack Web Developer</p>
               </Tab>
-              <Tab key={"Researcher"} value={"Researcher"}>
-                <p className="font-bold text-white">Researcher</p>
+              <Tab key={"Researcher"} value={"Researcher"} className="my-auto">
+                <p className="font-bold text-white leading-none">Researcher</p>
               </Tab>
             </TabsHeader>
-            <TabsBody className="mt-10">
+            <TabsBody className="mt-2 sm:mt-4 md:mt-6 lg:mt-10">
               <TabPanel
                 key={"data-scientist"}
                 value={"data-scientist"}

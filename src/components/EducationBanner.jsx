@@ -93,7 +93,7 @@ function EducationCard({ institution, location, degree, year, logos }) {
       <LogoList logos={logos} />
       <h3 className="text-lg font-semibold text-center">{institution}</h3>
       <p className="text-center">{location}</p>
-      <p className="text-gray mt-2">{degree}</p>
+      <p className="text-gray_text mt-2">{degree}</p>
       <p className="absolute top-2 right-2 bg-gold text-black p-1 font-bold rounded-md">
         {year}
       </p>

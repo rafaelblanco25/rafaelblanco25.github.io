@@ -7,23 +7,22 @@ import ServicesBanner from "./components/ServicesBanner.jsx";
 import EducationBanner from "./components/EducationBanner.jsx";
 import ResearchBanner from "./components/ResearchBanner.jsx";
 import ExperienceBanner from "./components/ExperienceBanner.jsx";
+import CoursesBanner from "./components/CoursesBanner.jsx";
 
 import { ThemeProvider } from "@material-tailwind/react";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ThemeProvider>
-      <div className="bg-gradient-to-r to-bordeaux from-black">
-        <IdBanner />
-        <AboutMeBanner />
-        <ServicesBanner />
-        <ExperienceBanner />
-        <EducationBanner />
-        <ResearchBanner />
-      </div>
+        <div className="bg-puzzle-style">
+          <IdBanner />
+          <AboutMeBanner />
+          <ServicesBanner />
+          <ExperienceBanner />
+          <EducationBanner />
+          <CoursesBanner />
+          <ResearchBanner />
+        </div>
     </ThemeProvider>
   </StrictMode>
 );
-
-// todo
-// 5. Courses

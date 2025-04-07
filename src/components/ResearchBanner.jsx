@@ -89,7 +89,7 @@ function ResearchBanner() {
       links: [
         {
           icon: link_paper,
-          link: "https://www.nature.com/articles/s41598-024-52903-w#article-info",
+          link: "https://www.nature.com/articles/s41598-024-52903-w",
         },
       ],
       technologies: ["Unity3D", "C#", "Python"],
@@ -115,7 +115,7 @@ function ResearchBanner() {
                 className="h-64 w-full object-cover rounded-lg mb-4"
               />
               <h3 className="text-xl font-bold">{research.title}</h3>
-              <p className="text-sm text-gray-400">
+              <p className="text-sm text-gray_text">
                 {research.type} - {research.journal}
               </p>
               <p className="text-sm">{research.description}</p>
