@@ -1,4 +1,3 @@
-import { Tooltip } from "@material-tailwind/react";
 import linkIcon from "../assets/courses/link.webp";
 import Banner from "./Banner";
 import CategoryIdentifier from "./CategoryIdentifier";
@@ -7,100 +6,86 @@ import { COURSES } from "../data/profile";
 function CoursesBanner() {
   return (
     <Banner id="courses">
-      <div className="w-full">
-        <CategoryIdentifier
-          name="Courses"
-          description="Courses And Certifications"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {COURSES.map((course) => (
-            <CourseCard
-              key={course.name}
-              name={course.name}
-              institution={course.institution}
-              icons={course.icons}
-              link={course.link}
-              date={course.date}
-              skills={course.skills}
-            />
-          ))}
-        </div>
+      <CategoryIdentifier
+        name="Certificaciones & Especializaciones"
+        description="Formación Continua en IA, Ciencia de Datos y Visualización"
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {COURSES.map((course) => (
+          <CourseCard key={course.name} course={course} />
+        ))}
       </div>
     </Banner>
   );
 }
-export default CoursesBanner;
 
-function CourseCard({ name, institution, icons, link, date, skills }) {
+function CourseCard({ course }) {
   return (
-    <div className="bg-black rounded-lg p-5 shadow-lg border-2 border-gray text-white flex flex-col gap-3 h-full">
-      <div className="flex items-center justify-between gap-2">
-        <p className="text-white bg-coursera px-2.5 py-0.5 text-xs sm:text-sm font-semibold rounded-md">
-          {institution}
-        </p>
+    <article className="rounded-2xl border border-brand-border bg-brand-surface p-6 text-white flex flex-col gap-4 hover:border-gold/60 transition-colors h-full">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <span className="text-white bg-coursera px-3 py-1 text-xs font-semibold rounded-lg">
+          {course.institution}
+        </span>
         <div className="flex items-center gap-2">
-          <span className="bg-gold text-black px-2.5 py-0.5 text-xs sm:text-sm font-bold rounded-md">
-            {date}
+          <span className="bg-brand-elevated border border-brand-border text-gold font-mono px-2.5 py-1 text-xs font-bold rounded-lg">
+            {course.date}
           </span>
-          {link && (
+          {course.link && (
             <a
-              href={link}
+              href={course.link}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Open course ${name}`}
-              className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+              aria-label={`Ver certificación ${course.name}`}
+              className="inline-flex items-center gap-1.5 rounded-lg border border-brand-border bg-brand-elevated px-2.5 py-1 text-xs font-semibold text-white hover:border-gold hover:text-gold transition-colors"
             >
-              <Tooltip content="Link to Course">
-                <img
-                  src={linkIcon}
-                  alt=""
-                  loading="lazy"
-                  decoding="async"
-                  className="h-8 w-8 hover:scale-105 transition-transform duration-300 bg-white rounded-full"
-                />
-              </Tooltip>
+              <img
+                src={linkIcon}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-4 w-4 bg-white rounded-full p-0.5"
+              />
+              <span>Ver curso</span>
             </a>
           )}
         </div>
       </div>
-      <LogoList logos={icons} />
-      <h3 className="text-white text-lg sm:text-xl font-bold text-center">
-        {name}
-      </h3>
-      <div className="flex flex-wrap gap-2 mt-auto pt-2">
-        {skills.map((skill) => (
+
+      <div className="flex items-center gap-3">
+        <div className="flex -space-x-2 shrink-0">
+          {course.icons.map((logo) => (
+            <div
+              key={logo.name}
+              title={logo.name}
+              className="bg-white rounded-full p-1.5 border-2 border-brand-surface"
+            >
+              <img
+                src={logo.icon}
+                alt={logo.name}
+                loading="lazy"
+                decoding="async"
+                className="h-9 w-9 rounded-full object-contain"
+              />
+            </div>
+          ))}
+        </div>
+        <h3 className="text-base sm:text-lg font-bold text-white leading-snug">
+          {course.name}
+        </h3>
+      </div>
+
+      <div className="flex flex-wrap gap-1.5 mt-auto pt-3 border-t border-brand-border">
+        {course.skills.map((skill) => (
           <span
             key={skill}
-            className="bg-gold text-black text-xs font-semibold px-2 py-1 rounded-lg"
+            className="rounded-md bg-gold/15 border border-gold/30 text-gold text-xs font-semibold px-2.5 py-1"
           >
             {skill}
           </span>
         ))}
       </div>
-    </div>
+    </article>
   );
 }
 
-function LogoList({ logos }) {
-  return (
-    <div className="flex -space-x-2 items-center justify-center">
-      {logos.map((logo) => (
-        <Tooltip key={logo.name} content={logo.name}>
-          <button
-            type="button"
-            aria-label={logo.name}
-            className="bg-white rounded-full p-2 border-2 border-black hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold transition-transform duration-300"
-          >
-            <img
-              src={logo.icon}
-              alt={logo.name}
-              loading="lazy"
-              decoding="async"
-              className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain"
-            />
-          </button>
-        </Tooltip>
-      ))}
-    </div>
-  );
-}
+export default CoursesBanner;

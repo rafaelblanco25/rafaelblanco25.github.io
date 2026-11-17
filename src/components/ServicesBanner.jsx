@@ -1,41 +1,79 @@
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
-import { SERVICES } from "../data/profile";
+import { SERVICE_PILLARS } from "../data/profile";
 
 function ServicesBanner() {
   return (
     <Banner id="services">
-      <div className="w-full">
-        <CategoryIdentifier name="Services" description="What Can I Do" />
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {SERVICES.map((service) => (
-            <ServiceCard key={service.name} service={service} />
-          ))}
-        </div>
+      <CategoryIdentifier
+        name="Servicios Profesionales"
+        description="Soluciones Tecnológicas, Consultoría y Formación"
+        subtitle="Cuatro áreas clave donde combino ingeniería de software, ciencia de datos e investigación científica para generar resultados medibles."
+      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {SERVICE_PILLARS.map((pillar) => (
+          <ServicePillarCard key={pillar.title} pillar={pillar} />
+        ))}
       </div>
     </Banner>
   );
 }
 
-function ServiceCard({ service }) {
+function ServicePillarCard({ pillar }) {
   return (
-    <div className="bg-black rounded-lg shadow-lg p-5 border border-gray lg:hover:scale-[1.03] lg:hover:border-gold lg:transition-transform lg:duration-300 h-full flex flex-col">
-      <img
-        src={service.icon}
-        alt=""
-        loading="lazy"
-        decoding="async"
-        className="h-20 w-20 mx-auto bg-white rounded-full p-1 mb-4"
-      />
-      <div className="w-fit mb-3 mx-auto">
-        <h3 className="text-base md:text-lg lg:text-xl font-bold text-white text-center">
-          {service.name}
-        </h3>
+    <article className="rounded-2xl border border-brand-border bg-brand-surface p-6 flex flex-col gap-4 hover:border-gold/60 transition-colors h-full">
+      <div className="flex items-center justify-between gap-3 flex-wrap">
+        <div className="flex items-center -space-x-2">
+          {pillar.icons.map((icon, idx) => (
+            <div
+              key={idx}
+              className="h-12 w-12 rounded-full bg-white p-1.5 border-2 border-brand-surface flex items-center justify-center"
+            >
+              <img
+                src={icon}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-contain"
+              />
+            </div>
+          ))}
+        </div>
+        <span className="rounded-full border border-gold/30 bg-gold/10 px-3 py-1 font-mono text-xs font-semibold text-gold">
+          {pillar.badge}
+        </span>
       </div>
-      <p className="text-gray_text text-xs sm:text-sm lg:text-base">
-        {service.description}
+
+      <h3 className="text-xl font-bold text-white">{pillar.title}</h3>
+      <p className="text-sm text-gray_text leading-relaxed">
+        {pillar.description}
       </p>
-    </div>
+
+      <ul className="space-y-2 mt-auto pt-3 border-t border-brand-border">
+        {pillar.deliverables.map((item) => (
+          <li
+            key={item}
+            className="flex items-start gap-2 text-xs sm:text-sm text-white/90"
+          >
+            <span className="text-gold font-mono font-bold" aria-hidden="true">
+              {">"}
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      {pillar.ctaHref && (
+        <div className="pt-2">
+          <a
+            href={pillar.ctaHref}
+            className="inline-flex items-center text-xs sm:text-sm font-bold text-gold hover:underline"
+          >
+            {pillar.ctaLabel}
+          </a>
+        </div>
+      )}
+    </article>
   );
 }
 

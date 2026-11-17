@@ -30,11 +30,4 @@ export default [
       ],
     },
   },
-  {
-    files: ['tailwind.config.js'],
-    languageOptions: {
-      globals: globals.node,
-      sourceType: 'commonjs',
-    },
-  },
 ]

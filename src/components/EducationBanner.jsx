@@ -1,4 +1,3 @@
-import { Tooltip } from "@material-tailwind/react";
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
 import { EDUCATION } from "../data/profile";
@@ -6,65 +5,73 @@ import { EDUCATION } from "../data/profile";
 function EducationBanner() {
   return (
     <Banner id="education">
-      <div className="w-full">
-        <CategoryIdentifier
-          name="Education"
-          description="Academic Background And Qualifications"
-        />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {EDUCATION.map((edu) => (
-            <EducationCard
-              key={edu.institution}
-              institution={edu.institution}
-              location={edu.location}
-              degree={edu.degree}
-              year={edu.year}
-              logos={edu.logos}
-            />
-          ))}
-        </div>
+      <CategoryIdentifier
+        name="Formación Académica"
+        description="Trayectoria Universitaria Internacional"
+        subtitle="Formación de doble titulación entre Venezuela y Francia, e investigación doctoral en España dentro del programa europeo Marie Skłodowska-Curie (H2020 CLIPE)."
+      />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {EDUCATION.map((edu) => (
+          <EducationCard key={edu.institution} edu={edu} />
+        ))}
       </div>
     </Banner>
   );
 }
 
-function LogoList({ logos }) {
+function EducationCard({ edu }) {
   return (
-    <div className="flex -space-x-2 items-center justify-center mb-3 flex-wrap">
-      {logos.map((logo) => (
-        <Tooltip key={logo.name} content={logo.name}>
-          <button
-            type="button"
-            aria-label={logo.name}
-            className="bg-white rounded-full p-2 border-2 border-black hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold transition-transform duration-300"
+    <article className="rounded-2xl border border-brand-border bg-brand-surface p-6 flex flex-col gap-4 hover:border-gold/60 transition-colors h-full">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <span className="rounded-lg border border-gold/30 bg-gold/10 px-2.5 py-1 font-mono text-xs font-bold text-gold">
+          {edu.gpa}
+        </span>
+        <span className="bg-brand-elevated border border-brand-border text-white font-mono px-2.5 py-1 text-xs font-semibold rounded-lg">
+          {edu.year}
+        </span>
+      </div>
+
+      {/* Logos with visible institution tags */}
+      <div className="flex flex-wrap items-center gap-2 pt-1">
+        {edu.logos.map((logo) => (
+          <div
+            key={logo.name}
+            title={logo.name}
+            className="inline-flex items-center gap-2 rounded-xl border border-brand-border bg-brand-elevated px-2.5 py-1.5"
           >
             <img
               src={logo.src}
               alt={logo.name}
               loading="lazy"
               decoding="async"
-              className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain"
+              className="h-7 w-7 rounded-full bg-white p-0.5 object-contain shrink-0"
             />
-          </button>
-        </Tooltip>
-      ))}
-    </div>
-  );
-}
-
-function EducationCard({ institution, location, degree, year, logos }) {
-  return (
-    <div className="bg-black shadow-md rounded-lg p-5 border-2 border-gray text-white flex flex-col gap-2 h-full">
-      <div className="flex justify-end">
-        <span className="bg-gold text-black px-2.5 py-0.5 text-xs sm:text-sm font-bold rounded-md">
-          {year}
-        </span>
+            <span className="text-xs font-medium text-gray_text">
+              {logo.name}
+            </span>
+          </div>
+        ))}
       </div>
-      <LogoList logos={logos} />
-      <h3 className="text-lg font-semibold text-center">{institution}</h3>
-      <p className="text-center text-sm text-gray_text">{location}</p>
-      <p className="text-gray_text text-sm sm:text-base mt-auto pt-2">{degree}</p>
-    </div>
+
+      <div>
+        <h3 className="text-lg sm:text-xl font-bold text-white">
+          {edu.institution}
+        </h3>
+        <p className="text-xs sm:text-sm font-mono text-gold mt-0.5">
+          {edu.location}
+        </p>
+      </div>
+
+      <p className="text-sm sm:text-base font-semibold text-white/95">
+        {edu.degree}
+      </p>
+
+      {edu.details && (
+        <p className="text-xs sm:text-sm text-gray_text mt-auto pt-3 border-t border-brand-border">
+          {edu.details}
+        </p>
+      )}
+    </article>
   );
 }
 

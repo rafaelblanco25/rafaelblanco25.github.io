@@ -4,11 +4,11 @@ function Banner({ children, first, id }) {
     <Tag
       id={id}
       className={
-        "w-full scroll-mt-16 px-4 sm:px-10 md:px-20 lg:px-32 py-8 sm:py-12 md:py-16 lg:py-20 flex items-center justify-center border-b-4 border-black gap-4 md:gap-10 lg:gap-20 bg-cover" +
-        (first ? " bg-black" : "")
+        "w-full scroll-mt-20 px-4 sm:px-8 md:px-12 lg:px-20 border-b border-brand-border bg-brand-bg " +
+        (first ? "py-12 sm:py-16 lg:py-24" : "py-14 sm:py-18 lg:py-24")
       }
     >
-      {children}
+      <div className="max-w-7xl mx-auto w-full">{children}</div>
     </Tag>
   );
 }

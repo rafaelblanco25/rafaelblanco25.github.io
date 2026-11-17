@@ -1,26 +1,28 @@
 /** @type {import('tailwindcss').Config} */
-const withMT = require("@material-tailwind/react/utils/withMT");
-
-module.exports = withMT({
+export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
       colors: {
-        bordeaux: "#820300",
-        white: "#ffffff",
+        brand: {
+          bg: "#0B0F17",
+          surface: "#111827",
+          elevated: "#1A2333",
+          border: "#1E293B",
+        },
+        bordeaux: "#8B1E24",
+        white: "#F8FAFC",
         black: "#000000",
-        gold: "#FFC94A",
-        gray: "#4C585B",
+        gold: "#F5B731",
+        gray: "#334155",
         coursera: "#1D59CA",
-        gray_text: "#E3E1D9",
+        gray_text: "#94A3B8",
       },
-      backgroundImage: {
-        'japan-style': "url('./assets/bg/bg.webp')",
-        'mosaic-style': "url('./assets/bg/mosaic-2.webp')",
-        'puzzle-style': "url('./assets/bg/puzzle.webp')",
-        'chess-style': "url('./assets/bg/chess.webp')",
+      fontFamily: {
+        sans: ['"Plus Jakarta Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+        mono: ['"JetBrains Mono"', "ui-monospace", "SFMono-Regular", "monospace"],
       },
     },
   },
   plugins: [],
-});
+};
