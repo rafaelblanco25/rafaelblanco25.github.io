@@ -1,12 +1,41 @@
-# React + Vite
+# Rafael Blanco — Personal Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio and academic/professional profile hosted at [rafaelblanco25.github.io](https://rafaelblanco25.github.io).
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Framework:** React 19 + Vite 6
+- **Styling:** Tailwind CSS 3 + Material Tailwind
+- **Linting:** ESLint 9
+- **Deployment:** GitHub Pages (`gh-pages` branch via GitHub Actions)
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```text
+├── .github/workflows/deploy.yml   # CI (lint + build) and automated GitHub Pages deploy
+├── public/                        # Static assets (icon.png, robots.txt, sitemap.xml)
+├── src/
+│   ├── assets/                    # Optimized WebP images, SVG icons, and CV PDF
+│   ├── components/                # UI sections (NavBar, IdBanner, AboutMeBanner, etc.)
+│   ├── data/profile.js            # Centralized content (bio, skills, experience, research)
+│   ├── index.css                  # Tailwind directives and smooth scrolling
+│   └── main.jsx                   # App entry point
+├── index.html                     # Document shell & SEO/Open Graph metadata
+├── tailwind.config.js             # Custom theme colors and background utilities
+└── vite.config.js                 # Vite configuration
+```
+
+## Updating Content
+
+All profile information, skills, services, work experience, education, courses, and scientific publications are defined in `src/data/profile.js`.
+
+## Scripts
+
+```bash
+npm install      # Install dependencies
+npm run dev      # Start local dev server
+npm run lint     # Run ESLint
+npm run build    # Build production bundle into dist/
+npm run preview  # Preview production build locally
+npm run deploy   # Manual deploy to gh-pages branch (handled automatically by CI on push to master)
+```

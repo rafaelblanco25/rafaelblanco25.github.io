@@ -1,82 +1,21 @@
-import coursera from "../assets/courses/coursera.svg.png";
-import deep_learning from "../assets/courses/dlai.png";
-import ibm from "../assets/courses/ibm.png";
-import link_icon from "../assets/courses/link.png";
-
+import { Tooltip } from "@material-tailwind/react";
+import linkIcon from "../assets/courses/link.webp";
 import Banner from "./Banner";
 import CategoryIdentifier from "./CategoryIdentifier";
-
-import { Tooltip } from "@material-tailwind/react";
+import { COURSES } from "../data/profile";
 
 function CoursesBanner() {
-  const courses = [
-    {
-      name: "Deep Learning Specialization",
-      institution: "Coursera",
-      icons: [
-        { name: "Coursera", icon: coursera },
-        { name: "DeepLearning.AI", icon: deep_learning },
-      ],
-      link: "https://www.coursera.org/specializations/deep-learning",
-      date: "Apr. 2020",
-      skills: [
-        "Machine Learning",
-        "Deep Learning",
-        "Artificial Neural Networks",
-        "Python",
-      ],
-    },
-    {
-      name: "IBM Data Science Professional Certificate",
-      institution: "Coursera",
-      icons: [
-        { name: "Coursera", icon: coursera },
-        { name: "IBM", icon: ibm },
-      ],
-      link: "https://www.coursera.org/professional-certificates/ibm-data-science",
-      date: "May 2020",
-      skills: [
-        "Python",
-        "Data Science",
-        "R",
-        "Data Analysis",
-        "Machine Learning",
-        "Big Data",
-        "Algorithms",
-        "SQL",
-      ],
-    },
-    {
-      name: "DeepLearning.AI TensorFlow Developer Professional Certificate",
-      institution: "Coursera",
-      icons: [
-        { name: "Coursera", icon: coursera },
-        { name: "DeepLearning.AI", icon: deep_learning },
-      ],
-      link: "https://www.coursera.org/professional-certificates/tensorflow-in-practice",
-      date: "Jul. 2020",
-      skills: [
-        "DeepLearning",
-        "TensorFlow",
-        "Forecasting",
-        "Natural Language Processing",
-        "Computer Vision",
-        "Artificial Neural Networks",
-        "Machine Learning",
-      ],
-    },
-  ];
   return (
-    <Banner>
+    <Banner id="courses">
       <div className="w-full">
         <CategoryIdentifier
           name="Courses"
           description="Courses And Certifications"
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {courses.reverse().map((course, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {COURSES.map((course) => (
             <CourseCard
-              key={index}
+              key={course.name}
               name={course.name}
               institution={course.institution}
               icons={course.icons}
@@ -94,30 +33,44 @@ export default CoursesBanner;
 
 function CourseCard({ name, institution, icons, link, date, skills }) {
   return (
-    <div className="bg-black rounded-lg p-4 shadow-lg border-2 border-gray text-white flex flex-col gap-2 relative h-fit my-auto">
+    <div className="bg-black rounded-lg p-5 shadow-lg border-2 border-gray text-white flex flex-col gap-3 h-full">
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-white bg-coursera px-2.5 py-0.5 text-xs sm:text-sm font-semibold rounded-md">
+          {institution}
+        </p>
+        <div className="flex items-center gap-2">
+          <span className="bg-gold text-black px-2.5 py-0.5 text-xs sm:text-sm font-bold rounded-md">
+            {date}
+          </span>
+          {link && (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Open course ${name}`}
+              className="rounded-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold"
+            >
+              <Tooltip content="Link to Course">
+                <img
+                  src={linkIcon}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="h-8 w-8 hover:scale-105 transition-transform duration-300 bg-white rounded-full"
+                />
+              </Tooltip>
+            </a>
+          )}
+        </div>
+      </div>
       <LogoList logos={icons} />
-      <h3 className="text-white text-xl font-bold mx-auto text-center">
+      <h3 className="text-white text-lg sm:text-xl font-bold text-center">
         {name}
       </h3>
-      <p className="text-white bg-coursera p-1 font-semibold rounded-md w-fit">
-        {institution}
-      </p>
-      <p className="absolute top-2 right-2 bg-gold text-black p-1 font-bold rounded-md">
-        {date}
-      </p>
-      <a href={link} target="_blank" className="absolute top-12 right-2">
-        <Tooltip content="Link to Course">
-          <img
-            src={link_icon}
-            alt="Link"
-            className="h-8 w-8 hover:scale-105 transition-transform duration-300 bg-white rounded-full"
-          />
-        </Tooltip>
-      </a>
-      <div className="flex flex-wrap gap-2 mt-2">
-        {skills.map((skill, index) => (
+      <div className="flex flex-wrap gap-2 mt-auto pt-2">
+        {skills.map((skill) => (
           <span
-            key={index}
+            key={skill}
             className="bg-gold text-black text-xs font-semibold px-2 py-1 rounded-lg"
           >
             {skill}
@@ -127,19 +80,25 @@ function CourseCard({ name, institution, icons, link, date, skills }) {
     </div>
   );
 }
+
 function LogoList({ logos }) {
   return (
-    <div className="flex -space-x-2 items-center justify-center mb-4">
-      {logos.map((logo, index) => (
-        <Tooltip key={index} content={logo.name}>
-          <div className="bg-white rounded-full p-2 border-2 border-black hover:scale-105 transition-transform duration-300">
+    <div className="flex -space-x-2 items-center justify-center">
+      {logos.map((logo) => (
+        <Tooltip key={logo.name} content={logo.name}>
+          <button
+            type="button"
+            aria-label={logo.name}
+            className="bg-white rounded-full p-2 border-2 border-black hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-gold transition-transform duration-300"
+          >
             <img
-              key={index}
               src={logo.icon}
               alt={logo.name}
-              className="h-16 w-16 rounded-full object-contain"
+              loading="lazy"
+              decoding="async"
+              className="h-14 w-14 sm:h-16 sm:w-16 rounded-full object-contain"
             />
-          </div>
+          </button>
         </Tooltip>
       ))}
     </div>
