@@ -69,6 +69,15 @@ function ClassesBanner() {
   const [formProgramId, setFormProgramId] = useState(c.programs[0].id);
   const [formModalityIdx, setFormModalityIdx] = useState(0);
   const [formNote, setFormNote] = useState("");
+  const [copiedEmail, setCopiedEmail] = useState(false);
+
+  const handleCopyEmail = () => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(p.email);
+      setCopiedEmail(true);
+      setTimeout(() => setCopiedEmail(false), 2500);
+    }
+  };
 
   const toggleModule = (program, modId) => {
     setSelectedByProgram((prev) => {
@@ -246,7 +255,7 @@ function ClassesBanner() {
       </div>
 
       {/* Program Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
         {filteredPrograms.map((program) => {
           const activeModalityText =
             c.modalityActiveText[selectedModality] || c.modalityActiveText.all;
@@ -395,10 +404,69 @@ function ClassesBanner() {
         })}
       </div>
 
+      {/* Study Group Callout Banner */}
+      {c.studyGroupBanner && (
+        <div className="rounded-2xl border border-emerald-500/40 bg-brand-surface p-5 sm:p-6 mb-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <span className="inline-flex items-center rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-0.5 text-xs font-mono font-bold text-emerald-400">
+              👥 {c.studyGroupBanner.badge}
+            </span>
+            <h3 className="text-lg sm:text-xl font-bold text-white">
+              {c.studyGroupBanner.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray_text leading-relaxed max-w-3xl">
+              {c.studyGroupBanner.description}
+            </p>
+          </div>
+          <a
+            href={`https://wa.me/${p.whatsappNumber}?text=${encodeURIComponent(
+              c.studyGroupBanner.waMessage
+            )}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 rounded-xl bg-emerald-500 px-4 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
+          >
+            {c.studyGroupBanner.ctaLabel}
+          </a>
+        </div>
+      )}
+
+      {/* 3-Step How It Works Strip */}
+      {c.howItWorks && (
+        <div className="mb-12">
+          <div className="mb-5">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-gold">
+              {">"} {c.howItWorks.tag}
+            </span>
+            <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+              {c.howItWorks.title}
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {c.howItWorks.steps.map((item) => (
+              <div
+                key={item.step}
+                className="rounded-2xl border border-brand-border bg-brand-surface p-5 flex flex-col gap-2"
+              >
+                <span className="font-mono text-2xl font-extrabold text-gold">
+                  {item.step}
+                </span>
+                <h4 className="text-base sm:text-lg font-bold text-white">
+                  {item.title}
+                </h4>
+                <p className="text-xs sm:text-sm text-gray_text leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Interactive Booking / Inquiry Builder */}
       <div
         id="reserva-rapida"
-        className="rounded-2xl border border-gold/40 bg-brand-surface p-6 sm:p-8 scroll-mt-24"
+        className="rounded-2xl border border-gold/40 bg-brand-surface p-6 sm:p-8 scroll-mt-24 mb-12"
       >
         <div className="max-w-3xl mb-6">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-gold">
@@ -467,7 +535,9 @@ function ClassesBanner() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
           >
-            <span>{L.sendWhatsappBtn}</span>
+            <span>
+              {L.sendWhatsappBtn} ({p.whatsappDisplay})
+            </span>
           </a>
           <a
             href={buildMailtoUrl(
@@ -482,8 +552,66 @@ function ClassesBanner() {
           >
             <span>{L.sendEmailBtn(p.email)}</span>
           </a>
+          <button
+            type="button"
+            onClick={handleCopyEmail}
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border bg-brand-elevated px-4 py-3 text-xs sm:text-sm font-semibold text-gray_text hover:border-gold hover:text-white transition-colors"
+          >
+            <span>{copiedEmail ? L.copiedEmailBtn : L.copyEmailBtn}</span>
+          </button>
         </div>
       </div>
+
+      {/* Frequently Asked Questions (FAQ) */}
+      {c.faqSection && (
+        <div id="faq" className="space-y-5">
+          <div>
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-gold">
+              {">"} {c.faqSection.tag}
+            </span>
+            <h3 className="text-xl sm:text-2xl font-bold text-white mt-1">
+              {c.faqSection.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray_text mt-1">
+              {c.faqSection.subtitle}
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {c.faqSection.items.map((faq) => (
+              <div
+                key={faq.q}
+                className="rounded-2xl border border-brand-border bg-brand-surface p-5 space-y-2 hover:border-gold/40 transition-colors"
+              >
+                <h4 className="text-sm sm:text-base font-bold text-white">
+                  {faq.q}
+                </h4>
+                <p className="text-xs sm:text-sm text-gray_text leading-relaxed">
+                  {faq.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Floating Direct WhatsApp Button */}
+      {p.whatsappNumber && (
+        <a
+          href={`https://wa.me/${p.whatsappNumber}?text=${encodeURIComponent(
+            L.floatingWhatsappMessage
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={L.floatingWhatsappLabel}
+          className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-4 py-3 text-xs sm:text-sm font-extrabold text-black shadow-xl shadow-black/50 hover:bg-emerald-400 transition-transform hover:scale-105"
+        >
+          <span aria-hidden="true">💬</span>
+          <span>{L.floatingWhatsappLabel}</span>
+          <span className="hidden sm:inline font-mono text-xs opacity-90">
+            · {p.whatsappDisplay}
+          </span>
+        </a>
+      )}
     </Banner>
   );
 }

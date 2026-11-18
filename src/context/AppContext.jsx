@@ -64,8 +64,26 @@ export function AppProvider({ children }) {
   useEffect(() => {
     const dict = CONTENT[lang];
     document.documentElement.lang = lang;
-    document.title =
-      view === "classes" ? dict.meta.classesTitle : dict.meta.title;
+    const isClasses = view === "classes";
+    document.title = isClasses ? dict.meta.classesTitle : dict.meta.title;
+
+    const descEl = document.querySelector('meta[name="description"]');
+    if (descEl) {
+      descEl.setAttribute(
+        "content",
+        isClasses ? dict.meta.classesDescription : dict.meta.description
+      );
+    }
+
+    const canonicalEl = document.querySelector('link[rel="canonical"]');
+    if (canonicalEl) {
+      canonicalEl.setAttribute(
+        "href",
+        isClasses
+          ? "https://rafaelblanco25.github.io/clases"
+          : "https://rafaelblanco25.github.io/"
+      );
+    }
   }, [lang, view]);
 
   const value = {

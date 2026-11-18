@@ -300,8 +300,12 @@ export const CONTENT = {
     meta: {
       title:
         "Rafael Blanco | Científico de Datos, Ingeniero en Computación & Portafolio",
+      description:
+        "Portafolio oficial de Rafael Blanco — Ingeniero en Computación (USB + Télécom SudParis / IP Paris), Científico de Datos, Desarrollador Web Full-Stack e Investigador (Inria, UPC, Ubisoft).",
       classesTitle:
         "Clases de Matemática y Programación en Isla de Margarita y Online | Rafael Blanco",
+      classesDescription:
+        "Clases personalizadas de Matemática de Bachillerato, Matemática Preuniversitaria, Habilidad Cuantitativa (Metodología Grupo Escalera) e Introducción a la Programación. Presencial en Isla de Margarita y Online en vivo. WhatsApp: +58 412-7077579.",
     },
     nav: {
       portfolioLinks: [
@@ -340,7 +344,8 @@ export const CONTENT = {
       heroImage: profileHero,
       aboutImage: profileAbout,
       email: "rblancog25@gmail.com",
-      whatsappNumber: "",
+      whatsappNumber: "584127077579",
+      whatsappDisplay: "+58 412-7077579",
       cvUrl: rbCv,
       ctaProjects: "Ver Proyectos y Publicaciones",
       ctaCv: "Descargar CV (PDF)",
@@ -713,6 +718,10 @@ export const CONTENT = {
       title: "Soluciones Tecnológicas, Consultoría I+D y Formación",
       subtitle:
         "Cuatro pilares donde combino ingeniería de software, ciencia de datos e investigación científica para generar valor.",
+      whatsappCtaLabel: "Consultar por WhatsApp",
+      emailCtaLabel: "Consultar por Correo",
+      waServiceIntro: (serviceTitle) =>
+        `Hola Rafael, vi tu portafolio web y me gustaría conversar sobre un proyecto de ${serviceTitle}.`,
       pillars: [
         {
           title: "Ciencia de Datos, Machine Learning & Visualización",
@@ -833,6 +842,11 @@ export const CONTENT = {
           "Ej. Mi hijo cursa 3er año y ve factorización / Me preparo para entrar a Ingeniería y quiero el curso completo...",
         sendWhatsappBtn: "Enviar Consulta por WhatsApp",
         sendEmailBtn: (email) => `Enviar Consulta por Correo (${email})`,
+        copyEmailBtn: "Copiar Correo",
+        copiedEmailBtn: "¡Correo copiado!",
+        floatingWhatsappLabel: "WhatsApp Directo",
+        floatingWhatsappMessage:
+          "Hola Rafael, vi tu página de clases y me gustaría consultar disponibilidad y tarifas.",
         waIntro:
           "Hola Rafael, vi tu página web y me interesa recibir información sobre tus clases.",
         waCourse: "Área / Curso",
@@ -843,6 +857,67 @@ export const CONTENT = {
         mailGreeting:
           "Hola Rafael,\n\nMe gustaría consultar disponibilidad y detalles para clases personalizadas:",
         mailClosing: "¡Muchas gracias!",
+      },
+      howItWorks: {
+        tag: "Proceso Simple y Sin Compromiso",
+        title: "¿Cómo empezar tus clases?",
+        steps: [
+          {
+            step: "01",
+            title: "Elige tu Curso o Tema",
+            description:
+              "Marca en el catálogo el curso completo, las clases puntuales que necesitas o el año de bachillerato que cursa el estudiante.",
+          },
+          {
+            step: "02",
+            title: "Diagnóstico Rápido por WhatsApp",
+            description:
+              "Escríbeme con un clic al +58 412-7077579. Evaluamos el objetivo académico, la fecha de tu examen y coordinamos horario.",
+          },
+          {
+            step: "03",
+            title: "Clases Prácticas a tu Medida",
+            description:
+              "Iniciamos las sesiones (presenciales en la Isla de Margarita u online en vivo) con resolución guiada, trucos de agilidad y material de apoyo.",
+          },
+        ],
+      },
+      studyGroupBanner: {
+        badge: "Beneficio para Compañeros",
+        title: "¿Estudias con amigos del mismo colegio o para el mismo examen?",
+        description:
+          "Además de clases individuales (1-a-1), puedes armar tu propio grupo de estudio reducido (2 a 4 compañeros) en Margarita u Online con tarifa preferencial por estudiante.",
+        ctaLabel: "Consultar tarifa grupal por WhatsApp →",
+        waMessage:
+          "Hola Rafael, nos interesa armar un grupo pequeño de estudio y quisiéramos consultar disponibilidad y tarifas grupales.",
+      },
+      faqSection: {
+        tag: "Dudas Frecuentes",
+        title: "Preguntas Frecuentes sobre las Clases y Cursos",
+        subtitle:
+          "Información clave para estudiantes y representantes en la Isla de Margarita y modalidad Online.",
+        items: [
+          {
+            q: "¿Cómo funcionan las clases presenciales en la Isla de Margarita?",
+            a: "Las sesiones presenciales son individuales (1-a-1) o en grupos reducidos de compañeros. Coordinamos directamente por WhatsApp la ubicación y el horario más conveniente en la isla, trabajando paso a paso sobre las guías del colegio, exámenes previos o el temario preuniversitario.",
+          },
+          {
+            q: "¿Qué necesito para ver clases en la modalidad Online en Vivo?",
+            a: "Solo necesitas computador, tablet o teléfono con conexión a internet. Las clases son 100% en vivo por videollamada utilizando pizarra digital interactiva donde ves cada desarrollo paso a paso en tiempo real. Al finalizar la sesión, recibes los apuntes digitales, guías de ejercicios y el código fuente trabajado.",
+          },
+          {
+            q: "¿Debo inscribir un curso completo o puedo solicitar clases puntuales?",
+            a: "Tienes total flexibilidad. En Matemática de Bachillerato (1ero a 5to año) nos adaptamos exactamente a la evaluación o guía que el alumno tenga esa semana en su colegio. En los cursos Preuniversitarios y de Programación puedes cursar el programa completo desde la Clase 1 o marcar en las tarjetas únicamente los temas específicos que quieras reforzar.",
+          },
+          {
+            q: "¿En qué consiste la metodología del Grupo Escalera para Habilidad Cuantitativa y Preuniversitario?",
+            a: "A diferencia de una clase tradicional, entrenamos tanto la base conceptual como la velocidad de resolución sin calculadora: reconocimiento rápido de patrones, traducción algebraica inmediata y descarte estratégico de opciones, ideales para pruebas de admisión (USB, UCV, UCAB, UNIMET, UDO) y el primer semestre de Ingeniería o Ciencias.",
+          },
+          {
+            q: "¿Cómo consulto precios, horarios disponibles y métodos de pago?",
+            a: "Haz clic en cualquiera de los botones de 'Solicitar por WhatsApp' (+58 412-7077579) después de elegir tus temas en el catálogo. Te responderé directamente con la disponibilidad de horarios y las opciones de pago nacionales e internacionales.",
+          },
+        ],
       },
       modalities: [
         {
@@ -1119,8 +1194,12 @@ export const CONTENT = {
     meta: {
       title:
         "Rafael Blanco | Data Scientist, Computer Engineer & Full-Stack Developer",
+      description:
+        "Official portfolio of Rafael Blanco — Computer Engineer (USB + Télécom SudParis / IP Paris), Data Scientist, Full-Stack Developer & R&D Researcher (Inria, UPC, Ubisoft).",
       classesTitle:
         "Math & Programming Tutoring (Isla de Margarita & Online) | Rafael Blanco",
+      classesDescription:
+        "Personalized High School Math, Pre-University Math, Quantitative Reasoning (Grupo Escalera Methodology), and Intro to Programming courses. In-person in Isla de Margarita and Live Online. WhatsApp: +58 412-7077579.",
     },
     nav: {
       portfolioLinks: [
@@ -1159,7 +1238,8 @@ export const CONTENT = {
       heroImage: profileHero,
       aboutImage: profileAbout,
       email: "rblancog25@gmail.com",
-      whatsappNumber: "",
+      whatsappNumber: "584127077579",
+      whatsappDisplay: "+58 412-7077579",
       cvUrl: rbCv,
       ctaProjects: "Explore Projects & Research",
       ctaCv: "Download CV (PDF)",
@@ -1531,6 +1611,10 @@ export const CONTENT = {
       title: "Engineering Solutions, R&D Consulting & Training",
       subtitle:
         "Four core pillars combining software engineering, data science, and scientific research.",
+      whatsappCtaLabel: "Inquire via WhatsApp",
+      emailCtaLabel: "Inquire via Email",
+      waServiceIntro: (serviceTitle) =>
+        `Hello Rafael, I visited your portfolio and would like to discuss a project related to ${serviceTitle}.`,
       pillars: [
         {
           title: "Data Science, Machine Learning & Visualization",
@@ -1651,6 +1735,11 @@ export const CONTENT = {
           "E.g. 9th grade factoring review / Preparing for Engineering admission and interested in the full course...",
         sendWhatsappBtn: "Send Inquiry via WhatsApp",
         sendEmailBtn: (email) => `Send Inquiry via Email (${email})`,
+        copyEmailBtn: "Copy Email",
+        copiedEmailBtn: "Email copied!",
+        floatingWhatsappLabel: "Direct WhatsApp",
+        floatingWhatsappMessage:
+          "Hello Rafael, I visited your classes page and would like to check availability and rates.",
         waIntro:
           "Hello Rafael, I visited your website and would like information about your classes.",
         waCourse: "Area / Course",
@@ -1661,6 +1750,67 @@ export const CONTENT = {
         mailGreeting:
           "Hello Rafael,\n\nI would like to inquire about availability and details for personalized classes:",
         mailClosing: "Thank you!",
+      },
+      howItWorks: {
+        tag: "Simple & Flexible Process",
+        title: "How to Get Started",
+        steps: [
+          {
+            step: "01",
+            title: "Select Your Course or Topics",
+            description:
+              "Pick the full course, specific modular classes, or the student's school year directly in the interactive catalog.",
+          },
+          {
+            step: "02",
+            title: "Quick WhatsApp Diagnostic",
+            description:
+              "Message me with one click at +58 412-7077579. We review your academic goals, upcoming exam dates, and schedule.",
+          },
+          {
+            step: "03",
+            title: "Hands-On Tailored Sessions",
+            description:
+              "Start your sessions (in-person in Isla de Margarita or live online) with guided problem-solving, strategic shortcuts, and study materials.",
+          },
+        ],
+      },
+      studyGroupBanner: {
+        badge: "Small Study Groups",
+        title: "Studying with classmates from the same school or for the same exam?",
+        description:
+          "In addition to 1-on-1 tutoring, you can form a small study group (2 to 4 students) in Isla de Margarita or Live Online with a preferred per-student rate.",
+        ctaLabel: "Ask about group rates on WhatsApp →",
+        waMessage:
+          "Hello Rafael, we are interested in forming a small study group and would like to ask about availability and group rates.",
+      },
+      faqSection: {
+        tag: "Frequently Asked Questions",
+        title: "Common Questions About Classes & Courses",
+        subtitle:
+          "Key details for students and parents in Isla de Margarita and Live Online.",
+        items: [
+          {
+            q: "How do in-person classes work in Isla de Margarita?",
+            a: "In-person sessions are held 1-on-1 or in small classmate groups. We coordinate the most convenient location and schedule in Margarita directly via WhatsApp, working step-by-step through school assignments, past exams, or the pre-university syllabus.",
+          },
+          {
+            q: "What do I need for Live Online sessions?",
+            a: "Just a computer, tablet, or phone with an internet connection. Sessions are 100% live via video call using an interactive digital whiteboard where every step is solved in real time. After each session, you receive the digital notes, worksheets, and code written during class.",
+          },
+          {
+            q: "Do I have to enroll in a full course, or can I book specific classes?",
+            a: "You have complete flexibility. High School Math tutoring adapts directly to the student's current school topic or upcoming test. For Pre-University and Programming courses, you can either take the full course from Class 1 or click only the specific modules you want to reinforce.",
+          },
+          {
+            q: "What makes the Grupo Escalera methodology different?",
+            a: "Beyond standard theory, we train mental agility and calculator-free problem solving: pattern recognition, fast algebraic modeling, and strategic option elimination—essential for university admission exams (USB, UCV, UCAB, UNIMET, UDO) and first-year Engineering or Science courses.",
+          },
+          {
+            q: "How can I check rates, available schedules, and payment methods?",
+            a: "Click any 'Request via WhatsApp' button (+58 412-7077579) after selecting your topics in the catalog. I will reply promptly with schedule availability and local/international payment options.",
+          },
+        ],
       },
       modalities: [
         {

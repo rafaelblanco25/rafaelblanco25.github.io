@@ -8,7 +8,7 @@
     "dev": "vite",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "build": "vite build && mkdir -p dist/clases dist/classes && cp dist/index.html dist/clases/index.html && cp dist/index.html dist/classes/index.html && cp dist/index.html dist/404.html",
+    "build": "vite build && node scripts/postbuild-seo.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },
