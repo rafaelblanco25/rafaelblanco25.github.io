@@ -19,6 +19,7 @@ const classesTitle =
 const classesDescription =
   "Clases personalizadas de Matemática de Bachillerato (1ero a 5to año), Matemática Preuniversitaria, Habilidad Cuantitativa (Metodología Grupo Escalera) e Introducción a la Programación. Presencial en Isla de Margarita y Online en vivo. WhatsApp: +58 412-7077579.";
 const classesUrl = "https://rafaelblanco25.github.io/clases";
+const classesOgImage = "https://rafaelblanco25.github.io/og-clases.png";
 
 const classesJsonLd = {
   "@context": "https://schema.org",
@@ -149,12 +150,20 @@ let classesHtml = baseHtml
     `<meta property="og:url" content="${classesUrl}" />`
   )
   .replace(
+    /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
+    `<meta property="og:image" content="${classesOgImage}" />`
+  )
+  .replace(
     /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/,
     `<meta name="twitter:title" content="${classesTitle}" />`
   )
   .replace(
     /<meta\s+name="twitter:description"\s+content="[^"]*"\s*\/>/,
     `<meta name="twitter:description" content="${classesDescription}" />`
+  )
+  .replace(
+    /<meta\s+name="twitter:image"\s+content="[^"]*"\s*\/>/,
+    `<meta name="twitter:image" content="${classesOgImage}" />`
   )
   .replace(
     /<script type="application\/ld\+json">[\s\S]*?<\/script>/,

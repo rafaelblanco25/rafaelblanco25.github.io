@@ -147,17 +147,26 @@ function ClassesBanner() {
       />
 
       {/* Credential Banner (Grupo Escalera + USB) */}
-      <div className="rounded-2xl border border-gold/40 bg-brand-surface p-5 sm:p-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-        <div className="space-y-1.5">
-          <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 border border-gold/30 px-3 py-0.5 text-xs font-mono font-bold text-gold">
-            <span>★ {c.credentialBanner.badge}</span>
+      <div className="rounded-2xl border border-gold/40 bg-brand-surface p-5 sm:p-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <img
+            src={p.aboutImage}
+            alt={p.name}
+            loading="eager"
+            decoding="async"
+            className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover border-2 border-gold/60 shrink-0"
+          />
+          <div className="space-y-1.5">
+            <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 border border-gold/30 px-3 py-0.5 text-xs font-mono font-bold text-gold">
+              <span>★ {c.credentialBanner.badge}</span>
+            </div>
+            <h3 className="text-lg sm:text-xl font-extrabold text-white">
+              {c.credentialBanner.title}
+            </h3>
+            <p className="text-xs sm:text-sm text-gray_text leading-relaxed max-w-3xl">
+              {c.credentialBanner.description}
+            </p>
           </div>
-          <h3 className="text-lg sm:text-xl font-extrabold text-white">
-            {c.credentialBanner.title}
-          </h3>
-          <p className="text-xs sm:text-sm text-gray_text leading-relaxed max-w-4xl">
-            {c.credentialBanner.description}
-          </p>
         </div>
         <a
           href="#reserva-rapida"
