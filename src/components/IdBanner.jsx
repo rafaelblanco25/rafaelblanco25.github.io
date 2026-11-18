@@ -1,5 +1,6 @@
 import Banner from "./Banner";
 import { useApp } from "../context/AppContext";
+import { trackEvent } from "../utils/analytics";
 
 function IdBanner() {
   const { t, navigateTo } = useApp();
@@ -64,6 +65,7 @@ function IdBanner() {
                 href={p.cvUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent("cv_download", { location: "hero" })}
                 className="inline-flex items-center gap-2 rounded-xl border border-brand-border bg-brand-surface px-5 py-3 text-sm sm:text-base font-semibold text-white hover:border-gold hover:text-gold transition-colors"
               >
                 <span>{p.ctaCv}</span>

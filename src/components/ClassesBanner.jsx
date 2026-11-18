@@ -2,6 +2,7 @@ import { useState } from "react";
 import Banner from "./Banner";
 import CategoryIdentifier from "./CategoryIdentifier";
 import { useApp } from "../context/AppContext";
+import { trackEvent } from "../utils/analytics";
 
 function buildWhatsAppUrl(
   labels,
@@ -72,6 +73,7 @@ function ClassesBanner() {
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const handleCopyEmail = () => {
+    trackEvent("email_copy", { location: "classes_quick_form" });
     if (navigator?.clipboard?.writeText) {
       navigator.clipboard.writeText(p.email);
       setCopiedEmail(true);
@@ -80,6 +82,10 @@ function ClassesBanner() {
   };
 
   const toggleModule = (program, modId) => {
+    trackEvent("module_select", {
+      program_id: program.id,
+      module_id: modId,
+    });
     setSelectedByProgram((prev) => {
       const current = prev[program.id] || [];
       if (modId === "ALL") {
@@ -390,6 +396,14 @@ function ClassesBanner() {
                     )}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() =>
+                      trackEvent("whatsapp_click", {
+                        location: "course_card",
+                        course: program.id,
+                        modality: activeModalityText,
+                        selection: summaryText,
+                      })
+                    }
                     className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
                   >
                     <span>{L.whatsappBtn}</span>
@@ -402,6 +416,13 @@ function ClassesBanner() {
                       activeModalityText,
                       summaryText
                     )}
+                    onClick={() =>
+                      trackEvent("email_click", {
+                        location: "course_card",
+                        course: program.id,
+                        modality: activeModalityText,
+                      })
+                    }
                     className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border bg-brand-elevated px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-white hover:border-gold hover:text-gold transition-colors"
                   >
                     <span>{L.emailBtn}</span>
@@ -433,6 +454,11 @@ function ClassesBanner() {
             )}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackEvent("whatsapp_click", {
+                location: "study_group_banner",
+              })
+            }
             className="shrink-0 rounded-xl bg-emerald-500 px-4 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
           >
             {c.studyGroupBanner.ctaLabel}
@@ -542,6 +568,13 @@ function ClassesBanner() {
             )}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackEvent("whatsapp_click", {
+                location: "quick_inquiry_form",
+                course: selectedFormProgram.id,
+                modality: selectedFormModalityText,
+              })
+            }
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
           >
             <span>
@@ -557,6 +590,13 @@ function ClassesBanner() {
               formatSelectionSummary(selectedFormProgram),
               formNote
             )}
+            onClick={() =>
+              trackEvent("email_click", {
+                location: "quick_inquiry_form",
+                course: selectedFormProgram.id,
+                modality: selectedFormModalityText,
+              })
+            }
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-bold text-black hover:bg-white transition-colors"
           >
             <span>{L.sendEmailBtn(p.email)}</span>
@@ -611,6 +651,11 @@ function ClassesBanner() {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            trackEvent("whatsapp_click", {
+              location: "floating_button",
+            })
+          }
           aria-label={L.floatingWhatsappLabel}
           className="fixed bottom-5 right-5 z-40 inline-flex items-center gap-2 rounded-full bg-emerald-500 px-4 py-3 text-xs sm:text-sm font-extrabold text-black shadow-xl shadow-black/50 hover:bg-emerald-400 transition-transform hover:scale-105"
         >

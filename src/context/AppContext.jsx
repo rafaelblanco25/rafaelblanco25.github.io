@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useState } from "react";
 import { ASSETS, CONTENT } from "../data/profile";
+import { trackEvent, trackPageView } from "../utils/analytics";
 
 const AppContext = createContext(null);
 
@@ -32,6 +33,7 @@ export function AppProvider({ children }) {
   const setLang = (nextLang) => {
     setUserChoseLang(true);
     setLangState(nextLang);
+    trackEvent("language_switch", { language: nextLang });
   };
 
   const navigateTo = (targetView, hash = "") => {
@@ -84,6 +86,8 @@ export function AppProvider({ children }) {
           : "https://rafaelblanco25.github.io/"
       );
     }
+
+    trackPageView(isClasses ? "/clases" : "/", document.title);
   }, [lang, view]);
 
   const value = {

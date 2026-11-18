@@ -1,6 +1,7 @@
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
 import { useApp } from "../context/AppContext";
+import { trackEvent } from "../utils/analytics";
 
 function ServicesBanner() {
   const { t, navigateTo } = useApp();
@@ -102,12 +103,24 @@ function ServicePillarCard({ pillar, sv, profile, navigateTo }) {
             href={waHref}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() =>
+              trackEvent("whatsapp_click", {
+                location: "services_banner",
+                service: pillar.badge,
+              })
+            }
             className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 px-3 py-1.5 text-xs font-bold text-emerald-300 hover:bg-emerald-500 hover:text-black transition-colors"
           >
             <span>{sv.whatsappCtaLabel}</span>
           </a>
           <a
             href={mailHref}
+            onClick={() =>
+              trackEvent("email_click", {
+                location: "services_banner",
+                service: pillar.badge,
+              })
+            }
             className="inline-flex items-center gap-1.5 rounded-lg border border-brand-border bg-brand-elevated px-3 py-1.5 text-xs font-semibold text-gray_text hover:border-gold hover:text-white transition-colors"
           >
             <span>{sv.emailCtaLabel}</span>
