@@ -183,98 +183,249 @@ export const NAV_LINKS = [
 ];
 
 export const CLASSES_DATA = {
-  title: "Clases Presenciales en Isla de Margarita y Online",
-  subtitle: "Formación Personalizada, Nivelación Universitaria y Mentorías Técnicas",
+  title: "Clases y Cursos Presenciales en Isla de Margarita y Online",
+  subtitle:
+    "Matemática de Bachillerato, Preparación Preuniversitaria (Metodología Grupo Escalera) e Introducción a la Programación",
   intro:
-    "Aprende directamente con un Ingeniero e Investigador con experiencia en universidades y centros de I+D europeos. Clases adaptadas a tu nivel — desde iniciación hasta nivel universitario y profesional.",
+    "Formación personalizada en la Isla de Margarita y online en vivo. Fui integrante y preparador del reconocido Grupo Escalera, combinando la metodología de preparación preuniversitaria venezolana con mi formación como Ingeniero en Computación (USB) y Magíster en Francia (Télécom SudParis / IP Paris).",
+  credentialBanner: {
+    badge: "Experiencia Docente Comprobada",
+    title: "Ex-Preparador del Grupo Escalera · Ingeniero USB (GPA 4.3/5.0)",
+    description:
+      "Conozco de primera mano los temarios, el nivel de exigencia y los métodos de resolución estratégica de pruebas de admisión (USB, UCV, UCAB, UNIMET, UDO) y de los primeros semestres universitarios en Ingeniería, Ciencias, Arquitectura y Medicina.",
+  },
   modalities: [
     {
       id: "presencial",
       badge: "📍 Isla de Margarita",
       title: "Modalidad Presencial (Isla de Margarita)",
       description:
-        "Sesiones individuales (1-a-1) o en grupos reducidos en la Isla de Margarita. Ideal para seguimiento cercano, práctica guiada paso a paso y formación para estudiantes o profesionales locales.",
+        "Clases individuales (1-a-1) o en grupos reducidos en la Isla de Margarita. Explicaciones detalladas en persona, seguimiento paso a paso del cuaderno/guía del alumno y práctica supervisada.",
       highlights: [
-        "Atención personalizada 1-a-1 o grupos pequeños",
-        "Horarios flexibles adaptados a tu disponibilidad",
-        "Práctica directa en tu equipo con ejercicios reales",
+        "Atención 1-a-1 o en grupos pequeños de estudio",
+        "Adaptado al ritmo del estudiante y a su colegio o universidad",
+        "Resolución guiada de guías de ejercicios y exámenes previos",
       ],
     },
     {
       id: "online",
       badge: "💻 Online en Vivo",
-      title: "Modalidad Online (Cualquier país)",
+      title: "Modalidad Online en Vivo",
       description:
-        "Clases interactivas en vivo por videollamada con pantalla compartida, pizarra digital, repositorio de código de cada sesión y acompañamiento continuo.",
+        "Sesiones interactivas por videollamada con pizarra digital paso a paso, material de apoyo descargable y la misma cercanía de una clase presencial desde cualquier lugar.",
       highlights: [
-        "100% en vivo (sin videos pregrabados genéricos)",
-        "Material práctico, notebooks y código descargable",
-        "Asesoría para proyectos, pruebas técnicas y tesis",
+        "100% en vivo con pizarra interactiva y resolución en tiempo real",
+        "Entrega de apuntes digitales, guías de ejercicios y código de la clase",
+        "Horarios flexibles para asesorías puntuales o cursos completos",
       ],
     },
   ],
   programs: [
     {
-      id: "prog-fundamentos",
-      category: "Programación & Algoritmos",
-      title: "Programación desde Cero hasta Nivel Universitario",
+      id: "mat-bachillerato",
+      category: "Bachillerato · 1ero a 5to Año",
+      formatType: "Asesoría Personalizada (A medida)",
+      title: "Matemática para Bachillerato (Ciencias y Humanidades)",
       modality: ["presencial", "online"],
       modalityLabel: "Presencial en Margarita / Online",
-      level: "Principiante · Intermedio · Universitario",
+      level: "1er, 2do, 3er, 4to y 5to Año de Bachillerato",
+      targetAudience:
+        "Estudiantes de educación media (Ciencias o Humanidades) que buscan reforzar las clases de su colegio, comprender los temas a fondo y mejorar sus calificaciones.",
       description:
-        "Domina la lógica de programación, estructuras de datos, programación orientada a objetos y resolución de problemas algorítmicos con bases sólidas de ingeniería.",
-      topics: ["Python", "C / C++", "C# / Java", "Estructuras de Datos", "Algoritmos", "Git"],
-    },
-    {
-      id: "data-ai",
-      category: "Ciencia de Datos & IA",
-      title: "Data Science, Machine Learning y Análisis de Datos",
-      modality: ["presencial", "online"],
-      modalityLabel: "Presencial en Margarita / Online",
-      level: "Intermedio · Universitario · Profesional",
-      description:
-        "Aprende a limpiar, analizar, visualizar y modelar datos reales. Desde análisis con Excel, SQL y Python hasta modelos predictivos y redes neuronales.",
-      topics: [
-        "Python (Pandas, NumPy)",
-        "Scikit-learn",
-        "TensorFlow / Keras",
-        "SQL & R",
-        "Visualización de Datos",
-        "Excel Analítico",
+        "Clases complementarias a las dictadas en el colegio. No siguen un temario rígido predefinido: cada asesoría se adapta exactamente al tema, guía o evaluación que el alumno esté viendo en su institución educativa, con explicaciones pacientes, detalladas y personalizadas.",
+      selectionHint:
+        "Selecciona el año que cursa el estudiante (puedes indicar el tema exacto de su colegio al enviar la consulta):",
+      allowFullCourse: false,
+      modules: [
+        {
+          id: "bach-1",
+          code: "1er Año",
+          title: "1er Año — Aritmética, Enteros (ℤ), Fracciones (ℚ), Ecuaciones Iniciales y Geometría Básica",
+        },
+        {
+          id: "bach-2",
+          code: "2do Año",
+          title: "2do Año — Polinomios, Productos Notables, Funciones Afines y Congruencia de Triángulos",
+        },
+        {
+          id: "bach-3",
+          code: "3er Año",
+          title: "3er Año — Números Reales (ℝ), Radicales, Factorización, Ecuación de 2do Grado, Sistemas y Pitágoras/Thales",
+        },
+        {
+          id: "bach-4",
+          code: "4to Año",
+          title: "4to Año (Ciencias / Humanidades) — Funciones, Trigonometría, Logaritmos, Progresiones, Vectores y Estadística",
+        },
+        {
+          id: "bach-5",
+          code: "5to Año",
+          title: "5to Año (Ciencias / Humanidades) — Polinomios Avanzados, Matrices/Determinantes, Geometría Analítica (Cónicas), Combinatoria e Intro al Cálculo",
+        },
       ],
     },
     {
-      id: "web-fullstack",
-      category: "Desarrollo Web",
-      title: "Desarrollo Web Full-Stack Moderno",
+      id: "mat-preuniversitaria",
+      category: "Preparación Preuniversitaria",
+      formatType: "Curso por Clases Definidas (Completo o por Tema)",
+      title: "Matemática Preuniversitaria",
       modality: ["presencial", "online"],
       modalityLabel: "Presencial en Margarita / Online",
-      level: "Principiante · Intermedio · Proyectos",
+      level: "5to Año · Graduados de Bachillerato · Nuevo Ingreso Universitario",
+      targetAudience:
+        "Aspirantes a Ingeniería, Arquitectura, Medicina, Ciencias, Economía y carreras afines que desean entrar a la universidad con bases sólidas y superar con éxito el primer semestre.",
       description:
-        "Construye páginas y aplicaciones web completas desde el diseño de interfaz responsiva hasta el backend, APIs y bases de datos relacionales.",
-      topics: [
-        "HTML5 & CSS3",
-        "JavaScript & React",
-        "Tailwind CSS & Bootstrap",
-        "Python (Django / Flask)",
-        "PostgreSQL & APIs",
+        "Curso estructurado bajo el enfoque de programas preuniversitarios de excelencia (Grupo Escalera / Propedéutico Benjamín Franklin). Está dividido en clases definidas e independientes: el alumno puede cursar el programa completo o solicitar únicamente los módulos específicos que necesite reforzar.",
+      selectionHint:
+        "Elige 'Curso Completo' o marca las clases específicas que deseas cursar:",
+      allowFullCourse: true,
+      modules: [
+        {
+          id: "mpre-1",
+          code: "Clase 1",
+          title: "Conjuntos Numéricos (ℕ, ℤ, ℚ, ℝ), Operaciones con Fracciones, Potenciación, Radicación y Racionalización",
+        },
+        {
+          id: "mpre-2",
+          code: "Clase 2",
+          title: "Polinomios: Operaciones, Productos Notables, División Sintética (Ruffini) y Teorema del Resto",
+        },
+        {
+          id: "mpre-3",
+          code: "Clase 3",
+          title: "Factorización Completa y Simplificación de Fracciones Algebraicas",
+        },
+        {
+          id: "mpre-4",
+          code: "Clase 4",
+          title: "Ecuaciones Lineales, Cuadráticas, con Radicales, Valor Absoluto y Sistemas de Ecuaciones",
+        },
+        {
+          id: "mpre-5",
+          code: "Clase 5",
+          title: "Desigualdades, Intervalos e Inecuaciones (Lineales, Cuadráticas, Racionales y con Valor Absoluto)",
+        },
+        {
+          id: "mpre-6",
+          code: "Clase 6",
+          title: "Funciones Reales: Dominio, Rango, Gráficas, Función Lineal, Cuadrática, Exponencial y Logarítmica",
+        },
+        {
+          id: "mpre-7",
+          code: "Clase 7",
+          title: "Geometría Plana, Espacial y Analítica (Triángulos, Círculos, Áreas, Volúmenes, Recta y Cónicas Básicas)",
+        },
+        {
+          id: "mpre-8",
+          code: "Clase 8",
+          title: "Trigonometría: Círculo Trigonométrico, Razones, Identidades, Ecuaciones, Ley del Seno y del Coseno",
+        },
       ],
     },
     {
-      id: "academico-tesis",
-      category: "Apoyo Universitario & Investigación",
-      title: "Nivelación Académica, Tesis y Redacción Científica",
+      id: "hab-cuantitativa",
+      category: "Aptitud Académica · Metodología Grupo Escalera",
+      formatType: "Curso por Clases Definidas (Completo o por Tema)",
+      title: "Habilidad Cuantitativa Preuniversitaria",
       modality: ["presencial", "online"],
       modalityLabel: "Presencial en Margarita / Online",
-      level: "Bachillerato · Universitario · Postgrado",
+      level: "Pruebas de Admisión · Aptitud Académica · Razonamiento Lógico",
+      targetAudience:
+        "Estudiantes que se preparan para exámenes de admisión universitaria (USB, UCV, UCAB, UNIMET, UDO, etc.) o pruebas estandarizadas de aptitud numérica.",
       description:
-        "Refuerzo en asignaturas de Computación e Ingeniería, asesoría técnica para trabajos de grado/proyectos, simulación en Unity3D y edición profesional en LaTeX.",
-      topics: [
-        "Materias de Computación",
-        "Asesoría de Tesis / Proyectos",
-        "LaTeX & Overleaf",
-        "Unity3D & Simulación",
-        "Inglés Técnico / Papers",
+        "Basado directamente en mi experiencia como integrante y preparador del Grupo Escalera. Desarrolla agilidad mental, descarte estratégico y planteamiento rápido de problemas sin calculadora. Puedes inscribir el curso completo o elegir clases puntuales.",
+      selectionHint:
+        "Elige 'Curso Completo' o marca las clases específicas que deseas cursar:",
+      allowFullCourse: true,
+      modules: [
+        {
+          id: "hcuant-1",
+          code: "Clase 1",
+          title: "Aritmética Estratégica y Teoría de Números (Divisibilidad, Primos, MCM, MCD y Restos)",
+        },
+        {
+          id: "hcuant-2",
+          code: "Clase 2",
+          title: "Razones, Proporciones, Magnitudes Directas/Inversas, Regla de Tres y Porcentajes Sucesivos",
+        },
+        {
+          id: "hcuant-3",
+          code: "Clase 3",
+          title: "Traducción al Lenguaje Algebraico y Problemas Clásicos (Edades, Móviles, Mezclas y Trabajo Conjunto)",
+        },
+        {
+          id: "hcuant-4",
+          code: "Clase 4",
+          title: "Sucesiones Numéricas, Alfanuméricas, Series, Operadores Matemáticos y Reconocimiento de Patrones",
+        },
+        {
+          id: "hcuant-5",
+          code: "Clase 5",
+          title: "Razonamiento Geométrico y Espacial Rápido (Áreas Sombreadas, Proporciones en Figuras y Ángulos)",
+        },
+        {
+          id: "hcuant-6",
+          code: "Clase 6",
+          title: "Principios de Conteo, Análisis Combinatorio (Permutaciones, Variaciones, Combinaciones) y Probabilidades",
+        },
+        {
+          id: "hcuant-7",
+          code: "Clase 7",
+          title: "Estadística Básica (Media, Mediana, Moda), Interpretación de Gráficos/Tablas y Suficiencia de Datos",
+        },
+      ],
+    },
+    {
+      id: "intro-programacion",
+      category: "Computación & Programación",
+      formatType: "Curso por Clases Definidas (Completo o por Tema)",
+      title: "Introducción a la Programación y a la Computación",
+      modality: ["presencial", "online"],
+      modalityLabel: "Presencial en Margarita / Online",
+      level: "Desde Cero · Preuniversitario · 1er Año de Universidad",
+      targetAudience:
+        "Jóvenes de bachillerato, futuros estudiantes de Ingeniería/Computación o principiantes que quieren aprender a pensar como programadores desde cero.",
+      description:
+        "Organizado bajo el mismo esquema modular por clases definidas: puedes tomar el curso completo desde cero o solicitar clases específicas para reforzar temas puntuales de tu materia universitaria de programación.",
+      selectionHint:
+        "Elige 'Curso Completo' o marca las clases específicas que deseas cursar:",
+      allowFullCourse: true,
+      modules: [
+        {
+          id: "prog-1",
+          code: "Clase 1",
+          title: "Fundamentos de Computación, Pensamiento Algorítmico, Lógica Proposicional y Diagramas/Pseudocódigo",
+        },
+        {
+          id: "prog-2",
+          code: "Clase 2",
+          title: "Variables, Tipos de Datos, Operadores, Expresiones y Entrada/Salida (Python / C)",
+        },
+        {
+          id: "prog-3",
+          code: "Clase 3",
+          title: "Estructuras Condicionales y Control de Decisiones (if, else, elif, condicionales anidados)",
+        },
+        {
+          id: "prog-4",
+          code: "Clase 4",
+          title: "Estructuras Iterativas / Ciclos (while, for), Contadores, Acumuladores y Corridas en Frío (Trazas)",
+        },
+        {
+          id: "prog-5",
+          code: "Clase 5",
+          title: "Funciones, Procedimientos, Paso de Parámetros, Alcance de Variables y Diseño Modular",
+        },
+        {
+          id: "prog-6",
+          code: "Clase 6",
+          title: "Estructuras de Datos Iniciales: Arreglos/Listas, Matrices (2D) y Manejo de Cadenas de Texto (Strings)",
+        },
+        {
+          id: "prog-7",
+          code: "Clase 7",
+          title: "Algoritmos Clásicos (Búsqueda, Ordenamiento Básico), Resolución de Problemas y Proyecto Práctico",
+        },
       ],
     },
   ],
