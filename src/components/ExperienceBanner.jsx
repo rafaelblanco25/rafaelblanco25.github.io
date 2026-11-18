@@ -1,17 +1,20 @@
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
-import { EXPERIENCE } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function ExperienceBanner() {
+  const { t } = useApp();
+  const e = t.experienceSection;
+
   return (
     <Banner id="experience">
       <CategoryIdentifier
-        name="Experiencia Profesional & I+D"
-        description="Centros de Investigación e Industria"
-        subtitle="Trayectoria de investigación y desarrollo en Francia trabajando en visualización de datos, realidad aumentada, visión por computador y algoritmos para videojuegos."
+        name={e.tag}
+        description={e.title}
+        subtitle={e.subtitle}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {EXPERIENCE.map((exp) => (
+        {e.items.map((exp) => (
           <ExperienceCard
             key={`${exp.company}-${exp.year}`}
             company={exp.company}
@@ -51,7 +54,7 @@ function ExperienceCard({
       <div className="flex items-center gap-4">
         <img
           src={logo}
-          alt={`Logo de ${company}`}
+          alt={company}
           loading="lazy"
           decoding="async"
           className="w-16 h-16 rounded-xl bg-white object-contain p-1.5 shrink-0"

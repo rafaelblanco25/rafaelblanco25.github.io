@@ -1,17 +1,20 @@
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
-import { RESEARCH } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function ResearchBanner() {
+  const { t } = useApp();
+  const r = t.researchSection;
+
   return (
     <Banner id="research">
       <CategoryIdentifier
-        name="Investigación Científica"
-        description="Publicaciones en Revistas y Conferencias Arbitradas"
-        subtitle="Trabajos publicados en Nature Scientific Reports, IEEE Transactions on Visualization and Computer Graphics (TVCG), Computer Graphics Forum (CGF) e IEEE VIS."
+        name={r.tag}
+        description={r.title}
+        subtitle={r.subtitle}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-white">
-        {RESEARCH.map((research) => (
+        {r.items.map((research) => (
           <article
             key={research.title}
             className="rounded-2xl border border-brand-border bg-brand-surface p-6 flex flex-col gap-4 hover:border-gold/60 transition-colors h-full"

@@ -1,54 +1,64 @@
 import { useState } from "react";
 import Banner from "./Banner";
 import CategoryIdentifier from "./CategoryIdentifier";
-import { CLASSES_DATA, PROFILE } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function buildWhatsAppUrl(
+  labels,
+  whatsappNumber,
   programTitle,
   modalityText,
   selectedModulesText,
   extraNote
 ) {
   const message =
-    `Hola Rafael, vi tu página web y me interesa recibir información sobre tus clases.\n\n` +
-    `• Área / Curso: ${programTitle}\n` +
-    `• Modalidad: ${modalityText}\n` +
-    (selectedModulesText ? `• Clases / Nivel de interés: ${selectedModulesText}\n` : "") +
-    (extraNote ? `• Tema o detalle adicional: ${extraNote}\n` : "");
+    `${labels.waIntro}\n\n` +
+    `• ${labels.waCourse}: ${programTitle}\n` +
+    `• ${labels.waModality}: ${modalityText}\n` +
+    (selectedModulesText
+      ? `• ${labels.waSelection}: ${selectedModulesText}\n`
+      : "") +
+    (extraNote ? `• ${labels.waNote}: ${extraNote}\n` : "");
 
   const encoded = encodeURIComponent(message);
-  if (PROFILE.whatsappNumber) {
-    return `https://wa.me/${PROFILE.whatsappNumber}?text=${encoded}`;
+  if (whatsappNumber) {
+    return `https://wa.me/${whatsappNumber}?text=${encoded}`;
   }
   return `https://api.whatsapp.com/send?text=${encoded}`;
 }
 
 function buildMailtoUrl(
+  labels,
+  email,
   programTitle,
   modalityText,
   selectedModulesText,
   extraNote
 ) {
   const subject = encodeURIComponent(
-    `Consulta de Clases (${modalityText}) — ${programTitle}`
+    `${labels.mailSubjectPrefix} (${modalityText}) — ${programTitle}`
   );
   const body = encodeURIComponent(
-    `Hola Rafael,\n\nMe gustaría consultar disponibilidad y detalles para clases personalizadas:\n\n` +
-      `- Área / Curso: ${programTitle}\n` +
-      `- Modalidad preferida: ${modalityText}\n` +
+    `${labels.mailGreeting}\n\n` +
+      `- ${labels.waCourse}: ${programTitle}\n` +
+      `- ${labels.waModality}: ${modalityText}\n` +
       (selectedModulesText
-        ? `- Clases / Nivel de interés: ${selectedModulesText}\n`
+        ? `- ${labels.waSelection}: ${selectedModulesText}\n`
         : "") +
-      (extraNote ? `- Tema o comentarios adicionales: ${extraNote}\n` : "") +
-      `\n¡Muchas gracias!`
+      (extraNote ? `- ${labels.waNote}: ${extraNote}\n` : "") +
+      `\n${labels.mailClosing}`
   );
-  return `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
+  return `mailto:${email}?subject=${subject}&body=${body}`;
 }
 
 function ClassesBanner() {
+  const { t, navigateTo } = useApp();
+  const c = t.classesSection;
+  const p = t.profile;
+  const L = c.labels;
+
   const [selectedModality, setSelectedModality] = useState("all");
 
-  // Map: programId -> array of selected module IDs (or ["ALL"] for full course)
   const [selectedByProgram, setSelectedByProgram] = useState({
     "mat-bachillerato": [],
     "mat-preuniversitaria": ["ALL"],
@@ -56,13 +66,8 @@ function ClassesBanner() {
     "intro-programacion": ["ALL"],
   });
 
-  // Bottom quick-builder form state
-  const [formProgramId, setFormProgramId] = useState(
-    CLASSES_DATA.programs[0].id
-  );
-  const [formModality, setFormModality] = useState(
-    "Presencial en Isla de Margarita"
-  );
+  const [formProgramId, setFormProgramId] = useState(c.programs[0].id);
+  const [formModalityIdx, setFormModalityIdx] = useState(0);
   const [formNote, setFormNote] = useState("");
 
   const toggleModule = (program, modId) => {
@@ -87,12 +92,12 @@ function ClassesBanner() {
   const formatSelectionSummary = (program) => {
     const selectedIds = selectedByProgram[program.id] || [];
     if (selectedIds.includes("ALL")) {
-      return `Curso Completo (${program.modules.length} clases)`;
+      return L.fullCourseSummary(program.modules.length);
     }
     if (selectedIds.length === 0) {
       return program.allowFullCourse
-        ? "Curso Completo o clases a convenir"
-        : "Asesoría personalizada (1ero a 5to año)";
+        ? L.defaultOpenSummary
+        : L.defaultTutoringSummary;
     }
     const labels = program.modules
       .filter((m) => selectedIds.includes(m.id))
@@ -102,47 +107,60 @@ function ClassesBanner() {
 
   const filteredPrograms =
     selectedModality === "all"
-      ? CLASSES_DATA.programs
-      : CLASSES_DATA.programs.filter((prog) =>
-          prog.modality.includes(selectedModality)
-        );
+      ? c.programs
+      : c.programs.filter((prog) => prog.modality.includes(selectedModality));
 
   const selectedFormProgram =
-    CLASSES_DATA.programs.find((p) => p.id === formProgramId) ||
-    CLASSES_DATA.programs[0];
+    c.programs.find((prog) => prog.id === formProgramId) || c.programs[0];
+
+  const selectedFormModalityText =
+    L.modalityOptions[formModalityIdx]?.value || L.modalityOptions[0].value;
 
   return (
-    <Banner id="classes">
+    <Banner first={true} id="classes">
+      <div className="mb-6">
+        <a
+          href="/"
+          onClick={(e) => {
+            e.preventDefault();
+            navigateTo("portfolio");
+          }}
+          className="inline-flex items-center gap-2 rounded-lg border border-brand-border bg-brand-surface px-3.5 py-2 text-xs sm:text-sm font-semibold text-gray_text hover:border-gold hover:text-white transition-colors"
+        >
+          <span>{c.backToPortfolioLabel}</span>
+        </a>
+      </div>
+
       <CategoryIdentifier
-        name="Academia, Cursos & Asesorías"
-        description={CLASSES_DATA.title}
-        subtitle={CLASSES_DATA.intro}
+        name={c.tag}
+        description={c.title}
+        subtitle={c.intro}
       />
 
       {/* Credential Banner (Grupo Escalera + USB) */}
       <div className="rounded-2xl border border-gold/40 bg-brand-surface p-5 sm:p-6 mb-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
         <div className="space-y-1.5">
           <div className="inline-flex items-center gap-2 rounded-full bg-gold/15 border border-gold/30 px-3 py-0.5 text-xs font-mono font-bold text-gold">
-            <span>★ {CLASSES_DATA.credentialBanner.badge}</span>
+            <span>★ {c.credentialBanner.badge}</span>
           </div>
           <h3 className="text-lg sm:text-xl font-extrabold text-white">
-            {CLASSES_DATA.credentialBanner.title}
+            {c.credentialBanner.title}
           </h3>
           <p className="text-xs sm:text-sm text-gray_text leading-relaxed max-w-4xl">
-            {CLASSES_DATA.credentialBanner.description}
+            {c.credentialBanner.description}
           </p>
         </div>
         <a
           href="#reserva-rapida"
           className="shrink-0 rounded-xl bg-gold px-4 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-white transition-colors"
         >
-          Armar mi plan de clases ↓
+          {c.credentialBanner.ctaButton}
         </a>
       </div>
 
-      {/* Modality Cards (Presencial en Isla de Margarita + Online) */}
+      {/* Modality Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
-        {CLASSES_DATA.modalities.map((mod) => {
+        {c.modalities.map((mod) => {
           const isPresencial = mod.id === "presencial";
           return (
             <div
@@ -167,7 +185,7 @@ function ClassesBanner() {
                     {mod.badge}
                   </span>
                   <span className="text-xs font-mono text-gray_text">
-                    1-a-1 · Grupos reducidos
+                    {c.modalityGroupRatio}
                   </span>
                 </div>
                 <h3 className="text-xl font-bold text-white">{mod.title}</h3>
@@ -198,23 +216,18 @@ function ClassesBanner() {
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div>
           <h3 className="text-xl sm:text-2xl font-bold text-white">
-            Catálogo de Cursos y Asesorías por Área
+            {c.catalogTitle}
           </h3>
           <p className="text-xs sm:text-sm text-gray_text mt-0.5">
-            Puedes hacer clic sobre las clases de cada tarjeta para solicitar el
-            curso completo o únicamente los temas que necesites.
+            {c.catalogSubtitle}
           </p>
         </div>
         <div
           className="inline-flex flex-wrap gap-2 rounded-xl border border-brand-border bg-brand-surface p-1.5"
           role="group"
-          aria-label="Filtrar clases por modalidad"
+          aria-label={c.catalogTitle}
         >
-          {[
-            { id: "all", label: "Todas las modalidades" },
-            { id: "presencial", label: "📍 Presencial (Margarita)" },
-            { id: "online", label: "💻 Online en Vivo" },
-          ].map((tab) => (
+          {c.filterTabs.map((tab) => (
             <button
               key={tab.id}
               type="button"
@@ -236,11 +249,7 @@ function ClassesBanner() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
         {filteredPrograms.map((program) => {
           const activeModalityText =
-            selectedModality === "presencial"
-              ? "Presencial en Isla de Margarita"
-              : selectedModality === "online"
-              ? "Online en Vivo"
-              : "Presencial en Margarita / Online";
+            c.modalityActiveText[selectedModality] || c.modalityActiveText.all;
 
           const currentSelection = selectedByProgram[program.id] || [];
           const isFullCourse = currentSelection.includes("ALL");
@@ -276,7 +285,9 @@ function ClassesBanner() {
               </p>
 
               <div className="rounded-xl border border-brand-border bg-brand-bg/60 p-3 text-xs text-gray_text">
-                <span className="font-semibold text-white">Dirigido a: </span>
+                <span className="font-semibold text-white">
+                  {L.targetAudience}
+                </span>
                 {program.targetAudience}
               </div>
 
@@ -297,7 +308,7 @@ function ClassesBanner() {
                           : "border border-brand-border bg-brand-elevated text-gray_text hover:text-white")
                       }
                     >
-                      ✓ Curso Completo ({program.modules.length} clases)
+                      {L.fullCourseButton(program.modules.length)}
                     </button>
                   )}
                 </div>
@@ -345,7 +356,7 @@ function ClassesBanner() {
               <div className="mt-auto pt-4 border-t border-brand-border space-y-3">
                 <p className="text-xs text-gray_text">
                   <span className="font-semibold text-white">
-                    Tu selección:{" "}
+                    {L.yourSelection}
                   </span>
                   <span className="text-gold font-medium">{summaryText}</span>
                 </p>
@@ -353,6 +364,8 @@ function ClassesBanner() {
                 <div className="flex flex-wrap items-center gap-2.5">
                   <a
                     href={buildWhatsAppUrl(
+                      L,
+                      p.whatsappNumber,
                       program.title,
                       activeModalityText,
                       summaryText
@@ -361,17 +374,19 @@ function ClassesBanner() {
                     rel="noopener noreferrer"
                     className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-3.5 py-2.5 text-xs sm:text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
                   >
-                    <span>Solicitar por WhatsApp</span>
+                    <span>{L.whatsappBtn}</span>
                   </a>
                   <a
                     href={buildMailtoUrl(
+                      L,
+                      p.email,
                       program.title,
                       activeModalityText,
                       summaryText
                     )}
                     className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl border border-brand-border bg-brand-elevated px-3.5 py-2.5 text-xs sm:text-sm font-semibold text-white hover:border-gold hover:text-gold transition-colors"
                   >
-                    <span>Solicitar por Correo</span>
+                    <span>{L.emailBtn}</span>
                   </a>
                 </div>
               </div>
@@ -387,61 +402,53 @@ function ClassesBanner() {
       >
         <div className="max-w-3xl mb-6">
           <span className="text-xs font-mono font-bold uppercase tracking-wider text-gold">
-            {">"} Consulta Personalizada
+            {">"} {L.quickInquiryTag}
           </span>
           <h3 className="text-xl sm:text-2xl font-extrabold text-white mt-1">
-            ¿Quieres inscribir un curso o agendar una asesoría de Bachillerato?
+            {L.quickInquiryTitle}
           </h3>
-          <p className="text-sm text-gray_text mt-1">
-            Indica el curso o año de bachillerato, tu modalidad preferida (Isla
-            de Margarita u Online) y los temas que necesitas reforzar.
-          </p>
+          <p className="text-sm text-gray_text mt-1">{L.quickInquirySubtitle}</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
           <label className="flex flex-col gap-1.5 text-xs font-semibold text-gray_text">
-            <span>Área o Curso</span>
+            <span>{L.courseFieldLabel}</span>
             <select
               value={formProgramId}
               onChange={(e) => setFormProgramId(e.target.value)}
               className="rounded-xl border border-brand-border bg-brand-elevated px-3 py-2.5 text-sm text-white focus:border-gold focus:outline-none"
             >
-              {CLASSES_DATA.programs.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.title}
+              {c.programs.map((prog) => (
+                <option key={prog.id} value={prog.id}>
+                  {prog.title}
                 </option>
               ))}
             </select>
           </label>
 
           <label className="flex flex-col gap-1.5 text-xs font-semibold text-gray_text">
-            <span>Modalidad Preferida</span>
+            <span>{L.modalityFieldLabel}</span>
             <select
-              value={formModality}
-              onChange={(e) => setFormModality(e.target.value)}
+              value={formModalityIdx}
+              onChange={(e) => setFormModalityIdx(Number(e.target.value))}
               className="rounded-xl border border-brand-border bg-brand-elevated px-3 py-2.5 text-sm text-white focus:border-gold focus:outline-none"
             >
-              <option value="Presencial en Isla de Margarita">
-                📍 Presencial en Isla de Margarita
-              </option>
-              <option value="Online en Vivo">💻 Online en Vivo</option>
-              <option value="Híbrida (Presencial en Margarita + Online)">
-                🔄 Híbrida (Margarita + Online)
-              </option>
+              {L.modalityOptions.map((opt, idx) => (
+                <option key={opt.value} value={idx}>
+                  {opt.label}
+                </option>
+              ))}
             </select>
           </label>
         </div>
 
         <label className="flex flex-col gap-1.5 text-xs font-semibold text-gray_text mb-5">
-          <span>
-            Tema del colegio, universidad a la que aspiras o clases que te
-            interesan (opcional)
-          </span>
+          <span>{L.noteFieldLabel}</span>
           <input
             type="text"
             value={formNote}
             onChange={(e) => setFormNote(e.target.value)}
-            placeholder="Ej. Mi hijo cursa 3er año y ve factorización / Me preparo para entrar a Ingeniería y quiero el curso completo..."
+            placeholder={L.notePlaceholder}
             className="rounded-xl border border-brand-border bg-brand-elevated px-3.5 py-2.5 text-sm text-white placeholder:text-gray_text/60 focus:border-gold focus:outline-none"
           />
         </label>
@@ -449,8 +456,10 @@ function ClassesBanner() {
         <div className="flex flex-wrap items-center gap-3">
           <a
             href={buildWhatsAppUrl(
+              L,
+              p.whatsappNumber,
               selectedFormProgram.title,
-              formModality,
+              selectedFormModalityText,
               formatSelectionSummary(selectedFormProgram),
               formNote
             )}
@@ -458,18 +467,20 @@ function ClassesBanner() {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-500 px-5 py-3 text-sm font-bold text-black hover:bg-emerald-400 transition-colors"
           >
-            <span>Enviar Consulta por WhatsApp</span>
+            <span>{L.sendWhatsappBtn}</span>
           </a>
           <a
             href={buildMailtoUrl(
+              L,
+              p.email,
               selectedFormProgram.title,
-              formModality,
+              selectedFormModalityText,
               formatSelectionSummary(selectedFormProgram),
               formNote
             )}
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm font-bold text-black hover:bg-white transition-colors"
           >
-            <span>Enviar Consulta por Correo ({PROFILE.email})</span>
+            <span>{L.sendEmailBtn(p.email)}</span>
           </a>
         </div>
       </div>

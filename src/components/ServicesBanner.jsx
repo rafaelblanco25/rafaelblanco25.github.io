@@ -1,25 +1,32 @@
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
-import { SERVICE_PILLARS } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function ServicesBanner() {
+  const { t, navigateTo } = useApp();
+  const sv = t.servicesSection;
+
   return (
     <Banner id="services">
       <CategoryIdentifier
-        name="Servicios Profesionales"
-        description="Soluciones Tecnológicas, Consultoría y Formación"
-        subtitle="Cuatro áreas clave donde combino ingeniería de software, ciencia de datos e investigación científica para generar resultados medibles."
+        name={sv.tag}
+        description={sv.title}
+        subtitle={sv.subtitle}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {SERVICE_PILLARS.map((pillar) => (
-          <ServicePillarCard key={pillar.title} pillar={pillar} />
+        {sv.pillars.map((pillar) => (
+          <ServicePillarCard
+            key={pillar.title}
+            pillar={pillar}
+            navigateTo={navigateTo}
+          />
         ))}
       </div>
     </Banner>
   );
 }
 
-function ServicePillarCard({ pillar }) {
+function ServicePillarCard({ pillar, navigateTo }) {
   return (
     <article className="rounded-2xl border border-brand-border bg-brand-surface p-6 flex flex-col gap-4 hover:border-gold/60 transition-colors h-full">
       <div className="flex items-center justify-between gap-3 flex-wrap">
@@ -63,10 +70,14 @@ function ServicePillarCard({ pillar }) {
         ))}
       </ul>
 
-      {pillar.ctaHref && (
+      {pillar.isClassesRouteCta && (
         <div className="pt-2">
           <a
-            href={pillar.ctaHref}
+            href="/clases"
+            onClick={(e) => {
+              e.preventDefault();
+              navigateTo("classes");
+            }}
             className="inline-flex items-center text-xs sm:text-sm font-bold text-gold hover:underline"
           >
             {pillar.ctaLabel}

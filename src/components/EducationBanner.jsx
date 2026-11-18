@@ -1,17 +1,20 @@
 import CategoryIdentifier from "./CategoryIdentifier";
 import Banner from "./Banner";
-import { EDUCATION } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function EducationBanner() {
+  const { t } = useApp();
+  const ed = t.educationSection;
+
   return (
     <Banner id="education">
       <CategoryIdentifier
-        name="Formación Académica"
-        description="Trayectoria Universitaria Internacional"
-        subtitle="Formación de doble titulación entre Venezuela y Francia, e investigación doctoral en España dentro del programa europeo Marie Skłodowska-Curie (H2020 CLIPE)."
+        name={ed.tag}
+        description={ed.title}
+        subtitle={ed.subtitle}
       />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {EDUCATION.map((edu) => (
+        {ed.items.map((edu) => (
           <EducationCard key={edu.institution} edu={edu} />
         ))}
       </div>
@@ -31,7 +34,6 @@ function EducationCard({ edu }) {
         </span>
       </div>
 
-      {/* Logos with visible institution tags */}
       <div className="flex flex-wrap items-center gap-2 pt-1">
         {edu.logos.map((logo) => (
           <div

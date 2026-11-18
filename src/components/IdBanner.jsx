@@ -1,7 +1,10 @@
 import Banner from "./Banner";
-import { PROFILE } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function IdBanner() {
+  const { t, navigateTo } = useApp();
+  const p = t.profile;
+
   return (
     <Banner first={true} id="top">
       <div className="flex flex-col gap-10 lg:gap-14">
@@ -15,29 +18,29 @@ function IdBanner() {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
               </span>
               <span className="text-xs sm:text-sm font-semibold text-emerald-300">
-                {PROFILE.locationBadge}
+                {p.availabilityBadge}
               </span>
             </div>
 
             <div>
               <p className="text-gold font-mono font-semibold text-sm sm:text-base mb-1">
-                {PROFILE.greeting}
+                {p.greeting}
               </p>
               <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight leading-tight">
-                {PROFILE.name}
+                {p.name}
               </h1>
               <p className="text-lg sm:text-xl font-bold text-white/90 mt-3 leading-snug">
-                {PROFILE.headline}
+                {p.headline}
               </p>
             </div>
 
             <p className="text-gray_text text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl">
-              {PROFILE.subheadline}
+              {p.subheadline}
             </p>
 
             {/* Roles Chips */}
             <div className="flex flex-wrap gap-2">
-              {PROFILE.roles.map((role) => (
+              {p.roles.map((role) => (
                 <span
                   key={role}
                   className="rounded-lg border border-brand-border bg-brand-surface px-3 py-1 text-xs sm:text-sm font-medium text-white"
@@ -48,35 +51,49 @@ function IdBanner() {
               ))}
             </div>
 
-            {/* Primary & Secondary CTAs */}
+            {/* Primary & Secondary CTAs for Recruiters */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <a
-                href="#classes"
+                href="#research"
                 className="inline-flex items-center gap-2 rounded-xl bg-gold px-5 py-3 text-sm sm:text-base font-bold text-black shadow-lg shadow-gold/10 hover:bg-white transition-colors"
               >
-                <span>Clases en Margarita y Online</span>
+                <span>{p.ctaProjects}</span>
                 <span aria-hidden="true">→</span>
               </a>
               <a
-                href={PROFILE.cvUrl}
+                href={p.cvUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-xl border border-brand-border bg-brand-surface px-5 py-3 text-sm sm:text-base font-semibold text-white hover:border-gold hover:text-gold transition-colors"
               >
-                <span>Descargar CV (PDF)</span>
+                <span>{p.ctaCv}</span>
               </a>
               <a
-                href={`mailto:${PROFILE.email}`}
+                href={`mailto:${p.email}`}
                 className="inline-flex items-center gap-2 rounded-xl border border-brand-border bg-brand-surface px-4 py-3 text-sm sm:text-base font-semibold text-gray_text hover:border-gold hover:text-white transition-colors"
               >
-                <span>Contactar</span>
+                <span>{p.ctaContact}</span>
+              </a>
+            </div>
+
+            {/* Discrete Link to Academy / Classes Portal */}
+            <div>
+              <a
+                href="/clases"
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigateTo("classes");
+                }}
+                className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-semibold text-gold hover:underline"
+              >
+                <span>🎓 {p.ctaClassesLink}</span>
               </a>
             </div>
 
             {/* Social Icons & Citizenships */}
-            <div className="flex flex-wrap items-center gap-4 pt-2 border-t border-brand-border/80">
-              <div className="flex items-center gap-3">
-                {PROFILE.socialLinks.map((item) => (
+            <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-brand-border/80">
+              <div className="flex items-center gap-3 flex-wrap">
+                {p.socialLinks.map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
@@ -100,7 +117,7 @@ function IdBanner() {
               </div>
 
               <div className="flex flex-wrap items-center gap-2">
-                {PROFILE.citizenships.map((citizenship) => (
+                {p.citizenships.map((citizenship) => (
                   <div
                     key={citizenship.label}
                     className="inline-flex items-center gap-2 rounded-full border border-brand-border bg-brand-surface/70 px-3 py-1 text-xs text-gray_text"
@@ -122,16 +139,16 @@ function IdBanner() {
           <div className="shrink-0">
             <div className="relative rounded-2xl border-2 border-brand-border bg-brand-surface p-2 shadow-2xl">
               <img
-                src={PROFILE.heroImage}
-                alt={`Retrato de ${PROFILE.name}`}
+                src={p.heroImage}
+                alt={p.name}
                 decoding="async"
                 className="rounded-xl w-48 h-48 sm:w-64 sm:h-64 lg:w-80 lg:h-80 object-cover"
               />
-              <div className="mt-2.5 flex items-center justify-between rounded-lg bg-brand-elevated px-3 py-2 text-xs">
+              <div className="mt-2.5 flex items-center justify-between rounded-lg bg-brand-elevated px-3 py-2 text-xs gap-2">
                 <span className="font-mono text-gold font-semibold">
-                  M.Sc. & Ing. Computación
+                  {p.portraitCaptionLeft}
                 </span>
-                <span className="text-gray_text">USB · IP Paris · UPC</span>
+                <span className="text-gray_text">{p.portraitCaptionRight}</span>
               </div>
             </div>
           </div>
@@ -139,7 +156,7 @@ function IdBanner() {
 
         {/* Bento Metrics Strip */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {PROFILE.metrics.map((metric) => (
+          {p.metrics.map((metric) => (
             <div
               key={metric.label}
               className="rounded-xl border border-brand-border bg-brand-surface p-5 flex flex-col justify-between gap-1 hover:border-gold/50 transition-colors"

@@ -1,25 +1,29 @@
 import linkIcon from "../assets/courses/link.webp";
 import Banner from "./Banner";
 import CategoryIdentifier from "./CategoryIdentifier";
-import { COURSES } from "../data/profile";
+import { useApp } from "../context/AppContext";
 
 function CoursesBanner() {
+  const { t } = useApp();
+  const c = t.coursesSection;
+
   return (
     <Banner id="courses">
-      <CategoryIdentifier
-        name="Certificaciones & Especializaciones"
-        description="Formación Continua en IA, Ciencia de Datos y Visualización"
-      />
+      <CategoryIdentifier name={c.tag} description={c.title} />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {COURSES.map((course) => (
-          <CourseCard key={course.name} course={course} />
+        {c.items.map((course) => (
+          <CourseCard
+            key={course.name}
+            course={course}
+            viewCourseLabel={c.viewCourseLabel}
+          />
         ))}
       </div>
     </Banner>
   );
 }
 
-function CourseCard({ course }) {
+function CourseCard({ course, viewCourseLabel }) {
   return (
     <article className="rounded-2xl border border-brand-border bg-brand-surface p-6 text-white flex flex-col gap-4 hover:border-gold/60 transition-colors h-full">
       <div className="flex items-center justify-between gap-2 flex-wrap">
@@ -35,7 +39,7 @@ function CourseCard({ course }) {
               href={course.link}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Ver certificación ${course.name}`}
+              aria-label={`${viewCourseLabel}: ${course.name}`}
               className="inline-flex items-center gap-1.5 rounded-lg border border-brand-border bg-brand-elevated px-2.5 py-1 text-xs font-semibold text-white hover:border-gold hover:text-gold transition-colors"
             >
               <img
@@ -45,7 +49,7 @@ function CourseCard({ course }) {
                 decoding="async"
                 className="h-4 w-4 bg-white rounded-full p-0.5"
               />
-              <span>Ver curso</span>
+              <span>{viewCourseLabel}</span>
             </a>
           )}
         </div>
